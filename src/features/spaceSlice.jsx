@@ -30,6 +30,7 @@ const spaceSlice = createSlice({
     data: null,
     status: "idle",
     message: null,
+    space_code: "space1",
   },
   reducers: {
     resetSpace: (state) => {

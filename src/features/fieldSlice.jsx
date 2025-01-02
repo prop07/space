@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getSpaceDetail } from "./spaceSlice";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 if (!apiUrl) {
@@ -14,6 +15,7 @@ const fetchWithErrorHandling = async (url, options, rejectWithValue) => {
     if (!response.ok || data.status === "error") {
       return rejectWithValue(data.message || "Operation failed");
     }
+
     return data;
   } catch (error) {
     return rejectWithValue(error.message || "Something went wrong");
@@ -22,8 +24,8 @@ const fetchWithErrorHandling = async (url, options, rejectWithValue) => {
 
 export const addField = createAsyncThunk(
   "space/addField",
-  async ({ id, fieldData }, { rejectWithValue }) =>
-    fetchWithErrorHandling(
+  async ({ id, fieldData }, { rejectWithValue, dispatch, getState }) => {
+    const data = await fetchWithErrorHandling(
       `${apiUrl}/space/${id}`,
       {
         method: "POST",
@@ -31,13 +33,29 @@ export const addField = createAsyncThunk(
         body: JSON.stringify(fieldData),
       },
       rejectWithValue
-    )
+    );
+
+    // Call getSpaceDetail after successful operation
+    if (data) {
+      const reduxStore = getState();
+      const space_code = reduxStore.space?.space_code;
+
+      if (space_code) {
+        console.log("space_code: ", space_code);
+        dispatch(getSpaceDetail(space_code));
+      } else {
+        console.error("space_code not found in the state");
+      }
+    }
+
+    return data;
+  }
 );
 
 export const updateField = createAsyncThunk(
   "space/updateField",
-  async ({ id, fieldData }, { rejectWithValue }) =>
-    fetchWithErrorHandling(
+  async ({ id, fieldData }, { rejectWithValue, dispatch, getState }) => {
+    const data = await fetchWithErrorHandling(
       `${apiUrl}/space/${id}`,
       {
         method: "PUT",
@@ -45,13 +63,28 @@ export const updateField = createAsyncThunk(
         body: JSON.stringify(fieldData),
       },
       rejectWithValue
-    )
+    );
+
+    if (data) {
+      const reduxStore = getState();
+      const space_code = reduxStore.space?.space_code;
+
+      if (space_code) {
+        console.log("space_code: ", space_code);
+        dispatch(getSpaceDetail(space_code));
+      } else {
+        console.error("space_code not found in the state");
+      }
+    }
+
+    return data;
+  }
 );
 
 export const deleteField = createAsyncThunk(
   "space/deleteField",
-  async ({ id, fieldData }, { rejectWithValue }) =>
-    fetchWithErrorHandling(
+  async ({ id, fieldData }, { rejectWithValue, dispatch, getState }) => {
+    const data = await fetchWithErrorHandling(
       `${apiUrl}/space/${id}`,
       {
         method: "DELETE",
@@ -59,7 +92,22 @@ export const deleteField = createAsyncThunk(
         body: JSON.stringify(fieldData),
       },
       rejectWithValue
-    )
+    );
+
+    if (data) {
+      const reduxStore = getState();
+      const space_code = reduxStore.space?.space_code;
+
+      if (space_code) {
+        console.log("space_code: ", space_code);
+        dispatch(getSpaceDetail(space_code));
+      } else {
+        console.error("space_code not found in the state");
+      }
+    }
+
+    return data;
+  }
 );
 
 const fieldSlice = createSlice({

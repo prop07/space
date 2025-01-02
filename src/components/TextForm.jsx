@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addField, resetField, updateField } from "../features/fieldSlice";
 import { useCloudStatus } from "../context/CloudStatusProvider";
-import { getSpaceDetail } from "../features/spaceSlice";
 
 const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
   const { cloudStatus, setCloudStatus } = useCloudStatus();
@@ -21,6 +20,7 @@ const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
     if (toggleForm && inputRef.current) {
       inputRef.current.focus();
     }
+    dispatch(resetField());
   }, [toggleForm]);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
       }
       if (fieldData.data && data.title && data.content) {
         setCloudStatus("pending");
+        console.log("running update");
         timeout.current = setTimeout(() => {
           dispatch(
             updateField({
@@ -41,13 +42,14 @@ const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
             })
           );
           timeout.current = null;
-        }, 500);
+        }, 2000);
       } else if (data.title && data.content) {
         setCloudStatus("pending");
+        console.log("running add");
         timeout.current = setTimeout(() => {
           dispatch(addField({ id: spaceId, fieldData: data }));
           timeout.current = null;
-        }, 500);
+        }, 2000);
       }
     };
 
@@ -56,7 +58,6 @@ const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
 
   const closeForm = () => {
     setToggleForm(false);
-    dispatch(resetField());
     setData((prev) => ({ ...prev, title: "", content: "" }));
   };
 

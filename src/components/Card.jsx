@@ -7,7 +7,7 @@ const Card = ({ activeDelete, activeFieldModel, details }) => {
   return (
     <div
       onClick={() => activeFieldModel(details)}
-      className=" p-4 space-y-2 rounded-md border border-outlineWhite  "
+      className=" p-4 space-y-2 rounded-md border border-outlineWhite"
     >
       <div className="flex justify-between items-start  ">
         <h1 className=" font-semibold  ">{title}</h1>

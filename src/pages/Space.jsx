@@ -1,12 +1,13 @@
 import Card from "../components/Card";
 import TextForm from "../components/TextForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpaceDetail } from "../features/spaceSlice";
 import { deleteField } from "../features/fieldSlice";
 import { Link, useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import DeleteConfirmationModal from "../components/models/DeleteConfirmationModal";
 import FieldModel from "../components/models/FieldModel";
+import { getSpaceDetail } from "../features/spaceSlice";
+
 const Space = () => {
   const { spaceId } = useParams();
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Space = () => {
 
   useEffect(() => {
     dispatch(getSpaceDetail(spaceId));
-  }, [spaceId]);
+  }, []);
 
   const deleteFunction = () => {
     console.log("delete me: ", activeField);
@@ -30,9 +31,16 @@ const Space = () => {
         },
       })
     );
-    dispatch(getSpaceDetail(spaceId));
     setToggleDelete(false);
   };
+
+  const renderCount = useRef(0);
+
+  renderCount.current += 1;
+
+  useEffect(() => {
+    console.log(`Component has rendered ${renderCount.current} times`);
+  });
 
   if (spaceDetail.status === "error") {
     return (
@@ -100,17 +108,20 @@ const LoadingAnimations = () => {
 
 const Loading = () => {
   return (
-    <div className=" animate-pulse p-4 space-y-2 rounded-md border border-outlineWhite  ">
-      <div className="flex justify-between items-start  ">
-        <div className="h-4 w-20  bg-neutral-100 rounded-md  "></div>
-        <div className="h-6 w-6  bg-neutral-100 rounded-md  "></div>
-      </div>
-      <div className="max-h-96 overflow-y-scroll space-y-1 ">
-        <div className="h-2 w-32  bg-neutral-100 rounded-md  "></div>
-        <div className="h-2 w-32  bg-neutral-100 rounded-md  "></div>
-      </div>
-      <div className="flex justify-end">
-        <div className="h-2 w-24  bg-neutral-100 rounded-md   "></div>
+    <div className=" space-y-4 mt-2">
+      <div className="p-4 space-y-2 rounded-md border  border-outlineWhite animate-pulse">
+        <div className="flex justify-between items-start">
+          <div className="h-4 bg-gray-600 rounded w-3/12"></div>
+          <div className="h-6 w-6 bg-gray-600 rounded"></div>
+        </div>
+        <div className="max-h-24 overflow-y-auto">
+          <div className="h-4 bg-gray-600 rounded w-full my-2"></div>
+          <div className="h-4 bg-gray-600 rounded w-7/12 my-2"></div>
+          <div className="h-4 bg-gray-600 rounded w-10/12 my-2"></div>
+        </div>
+        <div className=" flex justify-end">
+          <div className="h-4 bg-gray-600 rounded w-4/12"></div>
+        </div>
       </div>
     </div>
   );
