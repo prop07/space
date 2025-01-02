@@ -1,7 +1,10 @@
+import { useDispatch } from "react-redux";
+import { updateSpaceCode } from "../../features/spaceSlice";
 import useHttp from "../useHttp";
 import { useState, useEffect, useRef } from "react";
 
 const useFindSpace = (space_code) => {
+  const dispatch = useDispatch();
   const { data, loading, error, fetchData } = useHttp("/space", "POST", {
     space_code: space_code,
   });
@@ -26,6 +29,12 @@ const useFindSpace = (space_code) => {
     setLocalData(null);
     setLocalError(null);
   };
+
+  useEffect(() => {
+    if (data) {
+      dispatch(updateSpaceCode(data.space_code));
+    }
+  }, [data]);
 
   // Sync the local state with the data and error from `useHttp`
   useEffect(() => {

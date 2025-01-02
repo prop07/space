@@ -30,13 +30,16 @@ const spaceSlice = createSlice({
     data: null,
     status: "idle",
     message: null,
-    space_code: "space1",
+    space_code: null,
   },
   reducers: {
     resetSpace: (state) => {
       state.data = null;
       state.status = "idle";
       state.message = null;
+    },
+    updateSpaceCode: (state, action) => {
+      state.space_code = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -59,5 +62,5 @@ const spaceSlice = createSlice({
   },
 });
 
-export const { resetSpace } = spaceSlice.actions;
+export const { resetSpace, updateSpaceCode } = spaceSlice.actions;
 export default spaceSlice.reducer;

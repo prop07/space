@@ -15,7 +15,6 @@ const fetchWithErrorHandling = async (url, options, rejectWithValue) => {
     if (!response.ok || data.status === "error") {
       return rejectWithValue(data.message || "Operation failed");
     }
-
     return data;
   } catch (error) {
     return rejectWithValue(error.message || "Something went wrong");

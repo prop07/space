@@ -20,7 +20,9 @@ const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
     if (toggleForm && inputRef.current) {
       inputRef.current.focus();
     }
-    dispatch(resetField());
+    if (!toggleForm) {
+      dispatch(resetField());
+    }
   }, [toggleForm]);
 
   useEffect(() => {
