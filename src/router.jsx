@@ -4,6 +4,7 @@ import Layout from "./Layouts/layout";
 import NotFound from "./NotFound";
 import Home from "./pages/Home";
 import Space from "./pages/Space";
+import Demo from "./components/Demo";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ const routes = createBrowserRouter([
         path: "/space/:spaceId",
         element: <Space />,
         handle: { title: "Space" },
+      },
+      {
+        path: "/demo",
+        element: <Demo />,
+        handle: { title: "demo" },
       },
     ],
   },

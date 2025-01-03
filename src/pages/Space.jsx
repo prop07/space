@@ -1,5 +1,3 @@
-import Card from "../components/Card";
-import TextForm from "../components/TextForm";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteField } from "../features/fieldSlice";
 import { Link, useParams } from "react-router";
@@ -7,6 +5,8 @@ import { useEffect, useState, useRef } from "react";
 import DeleteConfirmationModal from "../components/models/DeleteConfirmationModal";
 import FieldModel from "../components/models/FieldModel";
 import { getSpaceDetail } from "../features/spaceSlice";
+import FieldList from "../components/FieldList";
+import FieldAddForm from "../components/ui/Forms/FieldAddForm";
 
 const Space = () => {
   const { spaceId } = useParams();
@@ -61,7 +61,7 @@ const Space = () => {
     <div className="flex-1 flex overflow-hidden">
       <div className="grid  w-screen">
         <div className=" relative p-2  ">
-          <TextForm
+          <FieldAddForm
             toggleForm={toggleForm}
             spaceId={spaceId}
             setToggleForm={setToggleForm}
@@ -150,15 +150,10 @@ const Fields = ({
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {spaceDetail.data.map((item) => (
-        <Card
-          key={item.field_code}
-          details={item}
-          activeDelete={activeDelete}
-          activeFieldModel={activeFieldModel}
-        />
-      ))}
-    </div>
+    <FieldList
+      spaceDetail={spaceDetail}
+      activeDelete={activeDelete}
+      activeFieldModel={activeFieldModel}
+    />
   );
 };

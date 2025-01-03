@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addField, resetField, updateField } from "../features/fieldSlice";
-import { useCloudStatus } from "../context/CloudStatusProvider";
+import {
+  addField,
+  resetField,
+  updateField,
+} from "../../../features/fieldSlice";
+import { useCloudStatus } from "../../../context/CloudStatusProvider";
 
-const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
+const FieldAddForm = ({ spaceId, toggleForm, setToggleForm }) => {
   const { cloudStatus, setCloudStatus } = useCloudStatus();
   const fieldData = useSelector((state) => state.field);
 
@@ -129,4 +133,4 @@ const TextForm = ({ spaceId, toggleForm, setToggleForm }) => {
   );
 };
 
-export default TextForm;
+export default FieldAddForm;
