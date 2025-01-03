@@ -39,6 +39,7 @@ const spaceSlice = createSlice({
       state.message = null;
     },
     updateSpaceCode: (state, action) => {
+      // state.space_code = "space1";
       state.space_code = action.payload;
     },
   },

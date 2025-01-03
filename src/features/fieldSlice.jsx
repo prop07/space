@@ -17,7 +17,10 @@ const fetchWithErrorHandling = async (url, options, rejectWithValue) => {
     }
     return data;
   } catch (error) {
-    return rejectWithValue(error.message || "Something went wrong");
+    return rejectWithValue({
+      status: "error",
+      message: error.message || "Unknown error occurred",
+    });
   }
 };
 
@@ -35,7 +38,8 @@ export const addField = createAsyncThunk(
     );
 
     // Call getSpaceDetail after successful operation
-    if (data) {
+    if (data.status === "success") {
+      console.log("data from delete: ", data);
       const reduxStore = getState();
       const space_code = reduxStore.space?.space_code;
 
@@ -64,7 +68,8 @@ export const updateField = createAsyncThunk(
       rejectWithValue
     );
 
-    if (data) {
+    if (data.status === "success") {
+      console.log("data from delete: ", data);
       const reduxStore = getState();
       const space_code = reduxStore.space?.space_code;
 
@@ -93,7 +98,8 @@ export const deleteField = createAsyncThunk(
       rejectWithValue
     );
 
-    if (data) {
+    if (data.status === "success") {
+      console.log("data from delete: ", data);
       const reduxStore = getState();
       const space_code = reduxStore.space?.space_code;
 
@@ -137,7 +143,7 @@ const fieldSlice = createSlice({
 
     const handleRejected = (state, action, failureMessage) => {
       state.status = "failed";
-      state.message = action.payload || failureMessage;
+      state.message = action.payload.message || failureMessage;
     };
 
     builder
