@@ -31,16 +31,9 @@ const Space = () => {
         },
       })
     );
+    setToggleForm(false);
     setToggleDelete(false);
   };
-
-  const renderCount = useRef(0);
-
-  renderCount.current += 1;
-
-  useEffect(() => {
-    console.log(`Component has rendered ${renderCount.current} times`);
-  });
 
   if (spaceDetail.status === "error") {
     return (
