@@ -1,10 +1,9 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import Layout from "./Layouts/layout";
 import NotFound from "./NotFound";
 import Home from "./pages/Home";
 import Space from "./pages/Space";
 import Demo from "./components/Demo";
+import Layout from "./layouts/Layout";
 
 const routes = createBrowserRouter([
   {
