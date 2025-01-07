@@ -39,7 +39,6 @@ export const addField = createAsyncThunk(
 
     // Call getSpaceDetail after successful operation
     if (data.status === "success") {
-      console.log("data from delete: ", data);
       const reduxStore = getState();
       const space_code = reduxStore.space?.space_code;
 
@@ -69,7 +68,6 @@ export const updateField = createAsyncThunk(
     );
 
     if (data.status === "success") {
-      console.log("data from delete: ", data);
       const reduxStore = getState();
       const space_code = reduxStore.space?.space_code;
 
@@ -99,7 +97,6 @@ export const deleteField = createAsyncThunk(
     );
 
     if (data.status === "success") {
-      console.log("data from delete: ", data);
       const reduxStore = getState();
       const space_code = reduxStore.space?.space_code;
 
@@ -131,19 +128,20 @@ const fieldSlice = createSlice({
   },
   extraReducers: (builder) => {
     const handlePending = (state) => {
+      state.data = null;
       state.status = "loading";
       state.message = null;
     };
 
     const handleFulfilled = (state, action, successMessage) => {
-      state.status = "succeeded";
-      state.data = action.payload;
-      state.message = successMessage;
+      state.data = action.payload.data;
+      state.status = "success";
+      state.message = action.payload.message || successMessage;
     };
 
     const handleRejected = (state, action, failureMessage) => {
-      state.status = "failed";
-      state.message = action.payload.message || failureMessage;
+      state.status = "error";
+      state.message = action.payload || failureMessage;
     };
 
     builder

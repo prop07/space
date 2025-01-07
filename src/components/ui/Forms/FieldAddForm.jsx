@@ -7,11 +7,18 @@ import {
 } from "../../../features/fieldSlice";
 import { useCloudStatus } from "../../../context/CloudStatusProvider";
 
-const FieldAddForm = ({ spaceId, toggleForm, setToggleForm }) => {
+const FieldAddForm = ({
+  spaceId,
+  formData,
+  setFormData,
+  toggleForm,
+  setToggleForm,
+}) => {
   const { cloudStatus, setCloudStatus } = useCloudStatus();
   const fieldData = useSelector((state) => state.field);
 
-  const [data, setData] = useState({ title: "", content: "" });
+  console.log("fieldData: ", JSON.stringify(fieldData, null, 2));
+
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const timeout = useRef(null);
@@ -34,7 +41,7 @@ const FieldAddForm = ({ spaceId, toggleForm, setToggleForm }) => {
       if (timeout.current) {
         clearTimeout(timeout.current);
       }
-      if (fieldData.data && data.title && data.content) {
+      if (fieldData.data && formData.title && formData.content) {
         setCloudStatus("pending");
         console.log("running update");
         timeout.current = setTimeout(() => {
@@ -42,30 +49,32 @@ const FieldAddForm = ({ spaceId, toggleForm, setToggleForm }) => {
             updateField({
               id: spaceId,
               fieldData: {
-                ...data,
+                ...formData,
                 field_code: fieldData.data.field.field_code,
               },
             })
           );
           timeout.current = null;
         }, 2000);
-      } else if (data.title && data.content) {
+      } else if (formData.title && formData.content) {
         setCloudStatus("pending");
         console.log("running add");
         timeout.current = setTimeout(() => {
-          dispatch(addField({ id: spaceId, fieldData: data }));
+          dispatch(addField({ id: spaceId, fieldData: formData }));
           timeout.current = null;
         }, 2000);
       }
     };
 
     addValue();
-  }, [data.title, data.content]);
+  }, [formData.title, formData.content]);
 
   const closeForm = () => {
     setToggleForm(false);
-    setData((prev) => ({ ...prev, title: "", content: "" }));
+    setFormData((prev) => ({ ...prev, title: "", content: "" }));
   };
+
+  console.log("field data: ", JSON.stringify(fieldData, null, 2));
 
   return (
     <div className=" mb-8">
@@ -82,22 +91,22 @@ const FieldAddForm = ({ spaceId, toggleForm, setToggleForm }) => {
           <input
             ref={inputRef}
             onChange={(e) =>
-              setData((prev) => ({ ...prev, title: e.target.value }))
+              setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
             className="bg-transparent w-full focus:outline-none"
             type="text"
-            value={data.title}
+            value={formData.title}
             placeholder="Heading"
             id="inputTitle"
           />
           <label className=" cursor-text" htmlFor="inputContent">
             <textarea
               onChange={(e) =>
-                setData((prev) => ({ ...prev, content: e.target.value }))
+                setFormData((prev) => ({ ...prev, content: e.target.value }))
               }
               className=" mt-2 bg-transparent resize-none text-sm placeholder:text-sm w-full focus:outline-none"
               type="text"
-              value={data.content}
+              value={formData.content}
               placeholder="Body..."
               id="inputContent"
               rows={1}

@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteField } from "../features/fieldSlice";
 import { Link, useParams } from "react-router";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { showErrorToast } from "../components/notifications/Toast";
 import DeleteConfirmationModal from "../components/models/DeleteConfirmationModal";
 import FieldModel from "../components/models/FieldModel";
-import { getSpaceDetail } from "../features/spaceSlice";
+import { getSpaceDetail, updateSpaceCode } from "../features/spaceSlice";
 import FieldList from "../components/FieldList";
 import FieldAddForm from "../components/ui/Forms/FieldAddForm";
 
@@ -12,14 +13,25 @@ const Space = () => {
   const { spaceId } = useParams();
   const dispatch = useDispatch();
   const spaceDetail = useSelector((state) => state.space);
+  const fieldData = useSelector((state) => state.field);
+  const [formData, setFormData] = useState({ title: "", content: "" });
   const [toggleForm, setToggleForm] = useState(false);
   const [toggleDelete, setToggleDelete] = useState(false);
   const [toggleFieldModel, setToggleFieldModel] = useState(false);
   const [activeField, setActiveField] = useState(null);
 
   useEffect(() => {
+    dispatch(updateSpaceCode(spaceId));
     dispatch(getSpaceDetail(spaceId));
   }, []);
+
+  useEffect(() => {
+    if (fieldData.status === "error") {
+      showErrorToast(fieldData.message);
+    }
+  }, [fieldData]);
+
+  console.log(JSON.stringify("space data: ", spaceDetail, null, 2));
 
   const deleteFunction = () => {
     console.log("delete me: ", activeField);
@@ -32,6 +44,7 @@ const Space = () => {
       })
     );
     setToggleForm(false);
+    setFormData((prev) => ({ ...prev, title: "", content: "" }));
     setToggleDelete(false);
   };
 
@@ -55,6 +68,8 @@ const Space = () => {
       <div className="grid  w-screen">
         <div className=" relative p-2  ">
           <FieldAddForm
+            formData={formData}
+            setFormData={setFormData}
             toggleForm={toggleForm}
             spaceId={spaceId}
             setToggleForm={setToggleForm}

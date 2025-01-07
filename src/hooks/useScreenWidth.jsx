@@ -12,7 +12,7 @@ const useScreenWidth = () => {
     };
   }, []);
 
-  return screenWidth - 25;
+  return screenWidth;
 };
 
 export default useScreenWidth;

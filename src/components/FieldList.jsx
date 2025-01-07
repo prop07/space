@@ -33,13 +33,6 @@ const FieldList = ({ spaceDetail, activeDelete, activeFieldModel }) => {
           <div className="space-y-2" key={column} style={{ flex: 1 }}>
             <h3>Column {column.toUpperCase()}</h3>
             {data[column].map((item, index) => (
-              // <div
-              //   className="border border-outlineWhite rounded-md p-4"
-
-              // >
-              //   <h4 className="font-bold">{item.title}</h4>
-              //   <p>{item.content}</p>
-              // </div>
               <Card
                 index={index}
                 key={item.field_code}
@@ -66,7 +59,7 @@ const Card = ({ activeDelete, activeFieldModel, details, index }) => {
       className=" p-4 space-y-2 rounded-md border border-outlineWhite"
     >
       <div className="flex justify-between items-start  ">
-        <p>index {index}</p>
+        {/* <p>index {index}</p> */}
         <h1 className=" font-semibold  ">{title}</h1>
         <button
           onClick={(e) => {

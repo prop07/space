@@ -1,48 +1,41 @@
-import { useDispatch } from "react-redux";
-import { updateSpaceCode } from "../../features/spaceSlice";
 import useHttp from "../useHttp";
-import { useState, useEffect, useRef } from "react";
+import { useRef, useEffect } from "react";
 
 const useFindSpace = (space_code) => {
-  const dispatch = useDispatch();
-  const { data, loading, error, fetchData } = useHttp("/space", "POST", {
-    space_code: space_code,
-  });
-
-  const [localData, setLocalData] = useState(data);
-  const [localError, setLocalError] = useState(error);
+  const { data, status, message, setStatus, fetchData } = useHttp(
+    "/space",
+    "POST",
+    {
+      space_code: space_code,
+    }
+  );
 
   const timeoutRef = useRef(null);
 
   const findSpace = () => {
-    // Clear any existing timeout
+    setStatus("pending");
     clearTimeout(timeoutRef.current);
 
-    // Set a new timeout
     timeoutRef.current = setTimeout(() => {
       fetchData();
-    }, 1000);
+    }, 2000);
   };
 
   const reset = () => {
     clearTimeout(timeoutRef.current);
-    setLocalData(null);
-    setLocalError(null);
   };
 
   useEffect(() => {
-    if (data) {
-      dispatch(updateSpaceCode(data.space_code));
-    }
-  }, [data]);
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
 
-  // Sync the local state with the data and error from `useHttp`
-  useEffect(() => {
-    setLocalData(data);
-    setLocalError(error);
-  }, [data, error]);
-
-  return { data: localData, loading, error: localError, findSpace, reset };
+  return {
+    data: data,
+    status: status,
+    message: message,
+    findSpace,
+    reset,
+  };
 };
 
 export default useFindSpace;

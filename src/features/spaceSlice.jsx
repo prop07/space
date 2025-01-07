@@ -51,7 +51,7 @@ const spaceSlice = createSlice({
       })
       .addCase(getSpaceDetail.fulfilled, (state, action) => {
         state.status = "success";
-        state.data = action.payload.fields;
+        state.data = action.payload.data.fields;
         state.message =
           action.payload.message || "Data retrieved successfully.";
       })

@@ -4,12 +4,12 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const useHttp = (path, method = "GET", body = null) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [status, setStatus] = useState("idle");
+  const [message, setMessage] = useState(null);
 
   const fetchData = async () => {
     try {
-      setLoading(true);
+      setStatus("pending");
       const options = {
         method,
         headers: {
@@ -20,17 +20,24 @@ const useHttp = (path, method = "GET", body = null) => {
       if (method === "POST" && body) {
         options.body = JSON.stringify(body);
       }
+
       const response = await fetch(apiUrl + path, options);
       const result = await response.json();
-      setData(result);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+
+      if (!response.ok || result.status === "error") {
+        throw new Error(result.message || "Operation failed");
+      }
+
+      setData(result.data);
+      setStatus("success");
+      setMessage(result.message);
+    } catch (error) {
+      setStatus("error");
+      setMessage(error.message || "Something went wrong");
     }
   };
 
-  return { data, loading, error, fetchData };
+  return { data, status, message, setStatus, fetchData };
 };
 
 export default useHttp;
