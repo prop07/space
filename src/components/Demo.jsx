@@ -1,9 +1,9 @@
-import CustomTextEditor from "./CustomTextEditor";
+import CustomEditor from "./CustomEditor";
 
 const Demo = () => {
   return (
     <div className="p-10 space-y-4">
-      <CustomTextEditor />
+      <CustomEditor />
     </div>
   );
 };

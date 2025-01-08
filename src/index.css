@@ -12,3 +12,7 @@ ul {
 ul li {
   margin-bottom: 8px; /* Space between list items */
 }
+
+.editor .ql-container {
+  border: none !important;
+}
