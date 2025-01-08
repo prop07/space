@@ -1,37 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const FieldModel = ({
-  activeField,
-  className,
-  toggleFieldModel,
-  setToggleFieldModel,
-}) => {
-  const { title, content, last_modified } = activeField || {};
+const FieldModel = ({ details, toggleModel, setToggleModel }) => {
+  const { title, content, last_modified } = details || {};
   const [data, setData] = useState({ title: "", content: "" });
   const inputRef = useRef(null);
 
   useEffect(() => {
-    setData((prev) => ({
-      ...prev,
+    setData({
       title: title || "",
       content: content || "",
-    }));
-  }, [activeField]);
+    });
+  }, [details]);
 
   useEffect(() => {
-    if (toggleFieldModel && inputRef.current) {
+    if (toggleModel && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [toggleFieldModel]);
+  }, [toggleModel]);
 
   return (
     <div
-      onClick={() => setToggleFieldModel(false)}
-      className={`${className}   h-screen w-full grid place-items-center inset-x-0 inset-y-0 bg-neutral-900 bg-opacity-85 `}
+      onClick={() => setToggleModel(false)}
+      className={`${
+        toggleModel ? "fixed" : "hidden"
+      } h-screen w-full grid place-items-center inset-0 bg-neutral-900 bg-opacity-85`}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="border -mt-[40vh] min-w-[300px] sm:min-w-[400px]  border-outlineWhite p-3 rounded-md bg-neutral-900    "
+        className="border -mt-[40vh] min-w-[300px] sm:min-w-[400px] border-outlineWhite p-3 rounded-md bg-neutral-900"
       >
         <input
           ref={inputRef}
@@ -44,39 +40,35 @@ const FieldModel = ({
           placeholder="Heading"
           id="inputTitle"
         />
-        <label className=" cursor-text" htmlFor="inputContent">
-          <textarea
-            onChange={(e) =>
-              setData((prev) => ({ ...prev, content: e.target.value }))
-            }
-            className=" mt-2 bg-transparent resize-none  w-full focus:outline-none"
-            type="text"
-            value={data.content || ""}
-            placeholder="Body..."
-            id="inputContent"
-            rows={1}
-            onInput={(e) => {
-              e.target.style.height = "auto"; // Reset height to auto to calculate the new scrollHeight
-              const maxHeight = 400;
-              e.target.style.height = `${Math.min(
-                e.target.scrollHeight,
-                maxHeight
-              )}px`;
-              e.target.style.overflowY =
-                e.target.scrollHeight > maxHeight ? "scroll" : "hidden"; // Enable scrolling if content exceeds maxHeight
-            }}
-          />
-
-          <div className="flex  justify-between items-center">
-            <p className="text-xs">Edited: {last_modified}</p>
-            <button
-              onClick={() => setToggleFieldModel(false)}
-              className=" font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md "
-            >
-              Close
-            </button>
-          </div>
-        </label>
+        <textarea
+          onChange={(e) =>
+            setData((prev) => ({ ...prev, content: e.target.value }))
+          }
+          className="mt-2 bg-transparent resize-none w-full focus:outline-none"
+          value={data.content || ""}
+          placeholder="Body..."
+          id="inputContent"
+          rows={1}
+          onInput={(e) => {
+            e.target.style.height = "auto";
+            const maxHeight = 400;
+            e.target.style.height = `${Math.min(
+              e.target.scrollHeight,
+              maxHeight
+            )}px`;
+            e.target.style.overflowY =
+              e.target.scrollHeight > maxHeight ? "scroll" : "hidden";
+          }}
+        />
+        <div className="flex justify-between items-center mt-2">
+          <p className="text-xs">Edited: {last_modified}</p>
+          <button
+            onClick={() => setToggleModel(false)}
+            className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );

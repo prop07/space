@@ -7,21 +7,32 @@ import {
 } from "../../../features/fieldSlice";
 import { useCloudStatus } from "../../../context/CloudStatusProvider";
 
-const FieldAddForm = ({
-  spaceId,
-  formData,
-  setFormData,
-  toggleForm,
-  setToggleForm,
-}) => {
+const FieldAddForm = ({ spaceId }) => {
+  const [toggleForm, setToggleForm] = useState(false);
+  const [formData, setFormData] = useState({ title: "", content: "" });
   const { cloudStatus, setCloudStatus } = useCloudStatus();
   const fieldData = useSelector((state) => state.field);
 
-  console.log("fieldData: ", JSON.stringify(fieldData, null, 2));
+  // console.log("fieldData: ", JSON.stringify(fieldData, null, 2));
 
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const timeout = useRef(null);
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (formRef.current && !formRef.current.contains(event.target)) {
+        setToggleForm(false);
+        setFormData((prev) => ({ ...prev, title: "", content: "" }));
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     setCloudStatus("idle");
@@ -69,15 +80,15 @@ const FieldAddForm = ({
     addValue();
   }, [formData.title, formData.content]);
 
-  const closeForm = () => {
+  const handleClose = () => {
     setToggleForm(false);
     setFormData((prev) => ({ ...prev, title: "", content: "" }));
   };
 
-  console.log("field data: ", JSON.stringify(fieldData, null, 2));
+  // console.log("field data: ", JSON.stringify(fieldData, null, 2));
 
   return (
-    <div className=" mb-8">
+    <div ref={formRef} className=" mb-8">
       <button
         onClick={() => setToggleForm(true)}
         className={`${
@@ -123,7 +134,7 @@ const FieldAddForm = ({
             />
             <div className="flex justify-end">
               <button
-                onClick={closeForm}
+                onClick={handleClose}
                 className=" font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md "
               >
                 Close
@@ -132,12 +143,6 @@ const FieldAddForm = ({
           </label>
         </div>
       </div>
-      {/* <button
-        className="border border-neutral-200 p-2 rounded-md mt-2"
-        onClick={addValue}
-      >
-        Add Field
-      </button> */}
     </div>
   );
 };

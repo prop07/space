@@ -1,10 +1,11 @@
-import React from "react";
 import { CgSpinner } from "react-icons/cg";
 import { BsCloudCheck } from "react-icons/bs";
 import { useCloudStatus } from "../context/CloudStatusProvider";
 import { Link, useLocation } from "react-router";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+  const spaceDetail = useSelector((state) => state.space);
   const path = useLocation();
   const { cloudStatus } = useCloudStatus();
   return (
@@ -12,7 +13,7 @@ const NavBar = () => {
       <div className="px-2 font-semibold tracking-widest">
         <Link to={"/"}>Space</Link>
       </div>
-      {path.pathname.includes("/space") ? (
+      {path.pathname.includes("/space") && spaceDetail.data ? (
         cloudStatus === "pending" ? (
           <CgSpinner className="animate-spin" size={23} />
         ) : (
