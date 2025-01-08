@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ul {
+  list-style-type: disc; /* Default bullet style */
+  padding-left: 40px; /* Default indentation */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul li {
+  margin-bottom: 8px; /* Space between list items */
+}

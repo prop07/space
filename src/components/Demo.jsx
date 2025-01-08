@@ -1,9 +1,9 @@
-import FieldActions from "./FieldActions";
+import CustomTextEditor from "./CustomTextEditor";
+
 const Demo = () => {
   return (
-    <div className="px-10 space-y-3">
-      <p>Demo</p>
-      <FieldActions />
+    <div className="p-10 space-y-4">
+      <CustomTextEditor />
     </div>
   );
 };

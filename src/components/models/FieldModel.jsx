@@ -4,6 +4,7 @@ const FieldModel = ({ details, toggleModel, setToggleModel }) => {
   const { title, content, last_modified } = details || {};
   const [data, setData] = useState({ title: "", content: "" });
   const inputRef = useRef(null);
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     setData({
@@ -18,16 +19,31 @@ const FieldModel = ({ details, toggleModel, setToggleModel }) => {
     }
   }, [toggleModel]);
 
+  // Adjust textarea height initially and on content change
+  useEffect(() => {
+    if (textareaRef.current) {
+      adjustTextareaHeight(textareaRef.current);
+    }
+  }, [data.content]);
+
+  const adjustTextareaHeight = (textarea) => {
+    textarea.style.height = "auto"; // Reset height
+    const maxHeight = 400; // Maximum height
+    textarea.style.height = `${Math.min(textarea.scrollHeight, maxHeight)}px`;
+    textarea.style.overflowY =
+      textarea.scrollHeight > maxHeight ? "scroll" : "hidden";
+  };
+
   return (
     <div
       onClick={() => setToggleModel(false)}
       className={`${
         toggleModel ? "fixed" : "hidden"
-      } h-screen w-full grid place-items-center inset-0 bg-neutral-900 bg-opacity-85`}
+      } h-screen w-full grid place-items-center inset-0 bg-neutral-900 bg-opacity-75`}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="border -mt-[40vh] min-w-[300px] sm:min-w-[400px] border-outlineWhite p-3 rounded-md bg-neutral-900"
+        className="border -mt-[30vh] min-w-[300px] sm:min-w-[500px] border-outlineWhite p-3 rounded-md bg-neutral-900"
       >
         <input
           ref={inputRef}
@@ -41,24 +57,16 @@ const FieldModel = ({ details, toggleModel, setToggleModel }) => {
           id="inputTitle"
         />
         <textarea
-          onChange={(e) =>
-            setData((prev) => ({ ...prev, content: e.target.value }))
-          }
-          className="mt-2 bg-transparent resize-none w-full focus:outline-none"
+          ref={textareaRef}
+          onChange={(e) => {
+            setData((prev) => ({ ...prev, content: e.target.value }));
+            adjustTextareaHeight(e.target);
+          }}
+          className="mt-2 bg-transparent resize-none w-full focus:outline-none max-h-[400px] overflow-y-scroll"
           value={data.content || ""}
           placeholder="Body..."
           id="inputContent"
           rows={1}
-          onInput={(e) => {
-            e.target.style.height = "auto";
-            const maxHeight = 400;
-            e.target.style.height = `${Math.min(
-              e.target.scrollHeight,
-              maxHeight
-            )}px`;
-            e.target.style.overflowY =
-              e.target.scrollHeight > maxHeight ? "scroll" : "hidden";
-          }}
         />
         <div className="flex justify-between items-center mt-2">
           <p className="text-xs">Edited: {last_modified}</p>
