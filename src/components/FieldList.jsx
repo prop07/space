@@ -77,11 +77,11 @@ const Card = ({ spaceId, details }) => {
         className="p-4 space-y-2 rounded-md border border-outlineWhite cursor-default"
       >
         <div className="flex justify-between items-start">
-          <h1 className="font-semibold">{title}</h1>
+          <h1 className="font-semibold break-words">{title}</h1>
           <FieldActions spaceId={spaceId} details={details} />
         </div>
         <div className="max-h-96 overflow-y-hidden">
-          <p>{content}</p>
+          <p dangerouslySetInnerHTML={{ __html: content }} />
         </div>
         <p className="text-xs text-end">Edited: {last_modified}</p>
       </div>

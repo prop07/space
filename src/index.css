@@ -15,4 +15,27 @@ ul li {
 
 .editor .ql-container {
   border: none !important;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.ql-editor.ql-blank::before {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-style: normal !important;
+  left: -0px !important;
+}
+
+/* Optional: Style the editor content text color */
+.ql-editor {
+  color: white;
+  padding: 0 !important;
+}
+
+/* Remove default Quill borders if needed */
+.ql-container.ql-snow {
+  border: none;
+}
+
+.ql-editor:focus {
+  outline: none;
 }

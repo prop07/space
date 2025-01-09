@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react";
+import CustomEditor from "../CustomEditor";
 
 const FieldModel = ({ details, toggleModel, setToggleModel }) => {
   const { title, content, last_modified } = details || {};
-  const [data, setData] = useState({ title: "", content: "" });
+  const [formData, setFormData] = useState({ title: "", content: "" });
   const inputRef = useRef(null);
   const textareaRef = useRef(null);
 
   useEffect(() => {
-    setData({
+    setFormData({
       title: title || "",
       content: content || "",
     });
@@ -24,7 +25,7 @@ const FieldModel = ({ details, toggleModel, setToggleModel }) => {
     if (textareaRef.current) {
       adjustTextareaHeight(textareaRef.current);
     }
-  }, [data.content]);
+  }, [formData.content]);
 
   const adjustTextareaHeight = (textarea) => {
     textarea.style.height = "auto"; // Reset height
@@ -43,31 +44,27 @@ const FieldModel = ({ details, toggleModel, setToggleModel }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="border -mt-[30vh] min-w-[300px] sm:min-w-[500px] border-outlineWhite p-3 rounded-md bg-neutral-900"
+        className="border z-20 -mt-[30vh] min-w-[300px] sm:min-w-[500px] max-w-600px] border-outlineWhite p-3 rounded-md bg-neutral-900"
       >
-        <input
-          ref={inputRef}
-          onChange={(e) =>
-            setData((prev) => ({ ...prev, title: e.target.value }))
-          }
-          className="bg-transparent font-semibold w-full focus:outline-none"
-          type="text"
-          value={data.title || ""}
-          placeholder="Heading"
-          id="inputTitle"
-        />
-        <textarea
-          ref={textareaRef}
-          onChange={(e) => {
-            setData((prev) => ({ ...prev, content: e.target.value }));
-            adjustTextareaHeight(e.target);
-          }}
-          className="mt-2 bg-transparent resize-none w-full focus:outline-none max-h-[400px] overflow-y-scroll"
-          value={data.content || ""}
-          placeholder="Body..."
-          id="inputContent"
-          rows={1}
-        />
+        <div className=" space-y-4">
+          <input
+            ref={inputRef}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, title: e.target.value }))
+            }
+            className="bg-transparent break-words text-lg font-semibold w-full focus:outline-none"
+            type="text"
+            value={formData.title || ""}
+            placeholder="Heading"
+            id="inputTitle"
+          />
+          <CustomEditor
+            value={formData.content}
+            setFormData={setFormData}
+            // closeForm={handleClose}
+          />
+        </div>
+
         <div className="flex justify-between items-center mt-2">
           <p className="text-xs">Edited: {last_modified}</p>
           <button

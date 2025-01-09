@@ -6,6 +6,7 @@ import {
   updateField,
 } from "../../../features/fieldSlice";
 import { useCloudStatus } from "../../../context/CloudStatusProvider";
+import CustomEditor from "../../CustomEditor";
 
 const FieldAddForm = ({ spaceId }) => {
   const [toggleForm, setToggleForm] = useState(false);
@@ -98,50 +99,31 @@ const FieldAddForm = ({ spaceId }) => {
         List anything...
       </button>
       <div className={`${!toggleForm ? "hidden" : "block"} `}>
-        <div className=" border border-outlineWhite rounded-md p-2">
+        <div className=" border border-outlineWhite rounded-md p-2 space-y-1">
           <input
             ref={inputRef}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
-            className="bg-transparent w-full focus:outline-none"
+            className="bg-transparent text-lg w-full focus:outline-none"
             type="text"
             value={formData.title}
             placeholder="Heading"
             id="inputTitle"
           />
-          <label className=" cursor-text" htmlFor="inputContent">
-            <textarea
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, content: e.target.value }))
-              }
-              className=" mt-2 bg-transparent resize-none text-sm placeholder:text-sm w-full focus:outline-none"
-              type="text"
-              value={formData.content}
-              placeholder="Body..."
-              id="inputContent"
-              rows={1}
-              onInput={(e) => {
-                e.target.style.height = "auto"; // Reset height to auto to calculate the new scrollHeight
-                const maxHeight = 400;
-                e.target.style.height = `${Math.min(
-                  e.target.scrollHeight,
-                  maxHeight
-                )}px`;
-                e.target.style.overflowY =
-                  e.target.scrollHeight > maxHeight ? "scroll" : "hidden"; // Enable scrolling if content exceeds maxHeight
-              }}
-            />
-            <div className="flex justify-end">
-              <button
-                onClick={handleClose}
-                className=" font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md "
-              >
-                Close
-              </button>
-            </div>
-          </label>
+          <CustomEditor
+            value={formData.content}
+            setFormData={setFormData}
+            closeForm={handleClose}
+          />
         </div>
+      </div>
+      <div className="mt-4">
+        <h3 className="text-lg font-semibold mb-2">Preview:</h3>
+        <div
+          className="p-4 rounded-lg bg-neutral-900 border border-neutral-700"
+          dangerouslySetInnerHTML={{ __html: formData.content }}
+        />
       </div>
     </div>
   );
