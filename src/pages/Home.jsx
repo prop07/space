@@ -7,8 +7,7 @@ import {
   showSuccessToast,
   showErrorToast,
 } from "../components/notifications/Toast";
-import useCreateSpace from "../hooks/space/useCreateSpace";
-import useFindSpace from "../hooks/space/useFindSpace";
+import { useCreateSpace , useFindSpace } from "../features/space";
 import useScreenWidth from "../hooks/useScreenWidth";
 import { Toolip } from "../components/ui/Toolip";
 

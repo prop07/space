@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { deleteField } from "../features/fieldSlice";
+import { deleteField } from "../index";
 
 const FieldActions = ({ spaceId, details }) => {
   const dispatch = useDispatch();

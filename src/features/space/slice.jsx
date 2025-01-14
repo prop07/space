@@ -1,23 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchSpaceDetail } from "./api";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-if (!apiUrl) {
-  throw new Error("API URL is not defined. Check your environment variables.");
-}
+const initialState = {
+  data: null,
+  status: "idle",
+  message: null,
+  space_code: null,
+};
 
-// Async thunk for fetching data
+// Async thunk for fetching space details
 export const getSpaceDetail = createAsyncThunk(
   "space/fetchData",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${apiUrl}/space/${id}`);
-      const data = await response.json();
-
-      if (!response.ok || data.status === "error") {
-        return rejectWithValue(data.message || "Failed to fetch space data");
-      }
-
-      return data; // Expecting `status: "success"` and other fields
+      const data = await fetchSpaceDetail(id);
+      return data; // Assuming `data` is the response object
     } catch (error) {
       return rejectWithValue(error.message || "Something went wrong");
     }
@@ -26,12 +23,7 @@ export const getSpaceDetail = createAsyncThunk(
 
 const spaceSlice = createSlice({
   name: "space",
-  initialState: {
-    data: null,
-    status: "idle",
-    message: null,
-    space_code: null,
-  },
+  initialState,
   reducers: {
     resetSpace: (state) => {
       state.data = null;
@@ -39,7 +31,6 @@ const spaceSlice = createSlice({
       state.message = null;
     },
     updateSpaceCode: (state, action) => {
-      // state.space_code = "space1";
       state.space_code = action.payload;
     },
   },

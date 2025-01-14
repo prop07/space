@@ -1,6 +1,6 @@
 import { useMemo, useRef, useEffect, useState } from "react";
 import FieldActions from "./FieldActions";
-import FieldModel from "./models/FieldModel";
+import FieldModel from "./FieldModel";
 
 const FieldList = ({ spaceId, spaceDetail }) => {
   const listContainerRef = useRef(null);

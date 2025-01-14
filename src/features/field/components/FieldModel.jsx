@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import CustomEditor from "../CustomEditor";
+import CustomEditor from "@/components/CustomEditor";
 
 const FieldModel = ({ details, toggleModel, setToggleModel }) => {
   const { title, content, last_modified } = details || {};

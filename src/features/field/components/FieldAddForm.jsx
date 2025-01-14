@@ -1,12 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addField,
-  resetField,
-  updateField,
-} from "../../../features/fieldSlice";
-import { useCloudStatus } from "../../../context/CloudStatusProvider";
-import CustomEditor from "../../CustomEditor";
+import { addField, resetField, updateField } from "@/features/field";
+
+import { useCloudStatus } from "@/context/CloudStatusProvider";
+import CustomEditor from "@/components/CustomEditor";
 
 const FieldAddForm = ({ spaceId }) => {
   const [toggleForm, setToggleForm] = useState(false);
@@ -117,13 +114,6 @@ const FieldAddForm = ({ spaceId }) => {
             closeForm={handleClose}
           />
         </div>
-      </div>
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">Preview:</h3>
-        <div
-          className="p-4 rounded-lg bg-neutral-900 border border-neutral-700"
-          dangerouslySetInnerHTML={{ __html: formData.content }}
-        />
       </div>
     </div>
   );

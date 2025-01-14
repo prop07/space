@@ -1,6 +1,6 @@
-import useHttp from "../useHttp";
+import useHttp from "@/hooks/useHttp";
 
-const useCreateSpace = () => {
+export const useCreateSpace = () => {
   const { data, status, message, fetchData } = useHttp("/space");
   const createSpace = () => {
     fetchData();
@@ -9,4 +9,3 @@ const useCreateSpace = () => {
   return { data, status, message, createSpace };
 };
 
-export default useCreateSpace;

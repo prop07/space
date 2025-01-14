@@ -1,7 +1,8 @@
-import useHttp from "../useHttp";
+import useHttp from "@/hooks/useHttp";
+
 import { useRef, useEffect } from "react";
 
-const useFindSpace = (space_code) => {
+export const useFindSpace = (space_code) => {
   const { data, status, message, setStatus, fetchData } = useHttp(
     "/space",
     "POST",
@@ -38,4 +39,3 @@ const useFindSpace = (space_code) => {
   };
 };
 
-export default useFindSpace;
