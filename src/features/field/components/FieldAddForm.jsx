@@ -5,7 +5,7 @@ import { addField, resetField, updateField } from "@/features/field";
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import CustomEditor from "@/components/CustomEditor";
 
-const FieldAddForm = ({ spaceId }) => {
+ export const FieldAddForm = ({ spaceId }) => {
   const [toggleForm, setToggleForm] = useState(false);
   const [formData, setFormData] = useState({ title: "", content: "" });
   const { cloudStatus, setCloudStatus } = useCloudStatus();
@@ -119,4 +119,3 @@ const FieldAddForm = ({ spaceId }) => {
   );
 };
 
-export default FieldAddForm;

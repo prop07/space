@@ -2,7 +2,7 @@ import { useMemo, useRef, useEffect, useState } from "react";
 import FieldActions from "./FieldActions";
 import FieldModel from "./FieldModel";
 
-const FieldList = ({ spaceId, spaceDetail }) => {
+export const FieldList = ({ spaceId, spaceDetail }) => {
   const listContainerRef = useRef(null);
   const [width, setWidth] = useState(0);
 
@@ -64,7 +64,6 @@ const FieldList = ({ spaceId, spaceDetail }) => {
   );
 };
 
-export default FieldList;
 
 const Card = ({ spaceId, details }) => {
   const { title, content, last_modified } = details;

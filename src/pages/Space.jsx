@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router";
 import { useEffect } from "react";
-import { showErrorToast } from "../components/notifications/Toast";
-import FieldList from "../features/field/components/FieldList";
-import FieldAddForm from "../features/field/components/FieldAddForm";
-import { getSpaceDetail,  updateSpaceCode } from "../features/space";
+import { showErrorToast } from "@/components/notifications/Toast";
+import {FieldList , FieldAddForm} from "@/features/field"
+import { getSpaceDetail,  updateSpaceCode } from "@/features/space";
+
 
 
 const Space = () => {

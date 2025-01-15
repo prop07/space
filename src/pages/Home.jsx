@@ -6,10 +6,10 @@ import { useNavigate, Link } from "react-router";
 import {
   showSuccessToast,
   showErrorToast,
-} from "../components/notifications/Toast";
-import { useCreateSpace , useFindSpace } from "../features/space";
-import useScreenWidth from "../hooks/useScreenWidth";
-import { Toolip } from "../components/ui/Toolip";
+} from "@/components/notifications/Toast";
+import { useCreateSpace , useFindSpace } from "@/features/space";
+import useScreenWidth from "@/hooks/useScreenWidth";
+import { Toolip } from "@/components/ui/Toolip";
 
 const Home = () => {
   const navigate = useNavigate();
