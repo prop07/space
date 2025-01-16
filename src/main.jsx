@@ -6,14 +6,16 @@ import { Provider } from "react-redux";
 import store from "./store";
 import Toast from "./components/notifications/Toast.jsx";
 import { CloudStatusProvider } from "./context/CloudStatusProvider.jsx";
+import SpaceDetailHandler from "./context/SpaceDetailHandler.jsx";
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
-  <CloudStatusProvider>
-    <Provider store={store}>
-      <Toast />
-      <App />
-    </Provider>
-  </CloudStatusProvider>
-  // </StrictMode>
+  <StrictMode>
+    <CloudStatusProvider>
+      <Provider store={store}>
+        <SpaceDetailHandler />
+        <Toast />
+        <App />
+      </Provider>
+    </CloudStatusProvider>
+  </StrictMode>
 );

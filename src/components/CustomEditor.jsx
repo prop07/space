@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { FaList } from "react-icons/fa";
 import { FiBold, FiItalic, FiUnderline } from "react-icons/fi";
 import ReactQuill from "react-quill";
@@ -7,31 +7,9 @@ import "react-quill/dist/quill.snow.css";
 const CustomEditor = ({ value, setFormData, closeForm }) => {
   const [activeTools, setActiveTools] = useState([]);
   const quillRef = useRef(null);
-  const editorContainerRef = useRef(null);
 
   const handleEditorChange = (value) => {
     setFormData((prev) => ({ ...prev, content: value }));
-
-    // Adjust height after content change
-    setTimeout(() => {
-      adjustEditorHeight();
-    }, 0);
-  };
-
-  const adjustEditorHeight = () => {
-    if (!quillRef.current) return;
-
-    const editor = quillRef.current.getEditor();
-    const editorContainer = editorContainerRef.current;
-    const scrollHeight = editor.root.scrollHeight;
-    const maxHeight = 300;
-
-    if (editorContainer) {
-      const newHeight = Math.min(scrollHeight, maxHeight);
-      editorContainer.style.height = `${newHeight}px`;
-      editorContainer.style.overflowY =
-        scrollHeight > maxHeight ? "auto" : "hidden";
-    }
   };
 
   const toggleTool = (format) => {
@@ -59,25 +37,10 @@ const CustomEditor = ({ value, setFormData, closeForm }) => {
     }
   };
 
-  // Add resize observer to handle window/container size changes
-  useEffect(() => {
-    if (!editorContainerRef.current) return;
-
-    const resizeObserver = new ResizeObserver(() => {
-      adjustEditorHeight();
-    });
-
-    resizeObserver.observe(editorContainerRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
-
   return (
     <div>
       <div className="flex flex-col  cursor-text" onClick={handleParentClick}>
-        <div ref={editorContainerRef} className="min-h-[100px]">
+        <div className="min-h-[50px]">
           <ReactQuill
             ref={quillRef}
             value={value}
@@ -85,6 +48,7 @@ const CustomEditor = ({ value, setFormData, closeForm }) => {
             placeholder="Body......"
             theme="snow"
             className="editor"
+            style={{ maxHeight: "400px", overflowY: "scroll" }}
             modules={{
               toolbar: false,
             }}

@@ -5,17 +5,15 @@ import { addField, resetField, updateField } from "@/features/field";
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import CustomEditor from "@/components/CustomEditor";
 
- export const FieldAddForm = ({ spaceId }) => {
+export const FieldAddForm = ({ spaceId }) => {
   const [toggleForm, setToggleForm] = useState(false);
   const [formData, setFormData] = useState({ title: "", content: "" });
   const { cloudStatus, setCloudStatus } = useCloudStatus();
   const fieldData = useSelector((state) => state.field);
 
-  // console.log("fieldData: ", JSON.stringify(fieldData, null, 2));
-
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const timeout = useRef(null);
+  const debounceTimeout = useRef(null);
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -33,10 +31,6 @@ import CustomEditor from "@/components/CustomEditor";
   }, []);
 
   useEffect(() => {
-    setCloudStatus("idle");
-  }, [fieldData]);
-
-  useEffect(() => {
     if (toggleForm && inputRef.current) {
       inputRef.current.focus();
     }
@@ -47,13 +41,13 @@ import CustomEditor from "@/components/CustomEditor";
 
   useEffect(() => {
     const addValue = () => {
-      if (timeout.current) {
-        clearTimeout(timeout.current);
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
       }
       if (fieldData.data && formData.title && formData.content) {
         setCloudStatus("pending");
         console.log("running update");
-        timeout.current = setTimeout(() => {
+        debounceTimeout.current = setTimeout(() => {
           dispatch(
             updateField({
               id: spaceId,
@@ -63,14 +57,14 @@ import CustomEditor from "@/components/CustomEditor";
               },
             })
           );
-          timeout.current = null;
+          debounceTimeout.current = null;
         }, 2000);
       } else if (formData.title && formData.content) {
         setCloudStatus("pending");
         console.log("running add");
-        timeout.current = setTimeout(() => {
+        debounceTimeout.current = setTimeout(() => {
           dispatch(addField({ id: spaceId, fieldData: formData }));
-          timeout.current = null;
+          debounceTimeout.current = null;
         }, 2000);
       }
     };
@@ -83,10 +77,8 @@ import CustomEditor from "@/components/CustomEditor";
     setFormData((prev) => ({ ...prev, title: "", content: "" }));
   };
 
-  // console.log("field data: ", JSON.stringify(fieldData, null, 2));
-
   return (
-    <div ref={formRef} className=" mb-8">
+    <div ref={formRef} className=" mb-8 px-2">
       <button
         onClick={() => setToggleForm(true)}
         className={`${
@@ -102,7 +94,7 @@ import CustomEditor from "@/components/CustomEditor";
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
-            className="bg-transparent text-lg w-full focus:outline-none"
+            className="bg-transparent mb-2 text-base w-full focus:outline-none"
             type="text"
             value={formData.title}
             placeholder="Heading"
@@ -118,4 +110,3 @@ import CustomEditor from "@/components/CustomEditor";
     </div>
   );
 };
-

@@ -1,17 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { showErrorToast } from "@/components/notifications/Toast";
-import {FieldList , FieldAddForm} from "@/features/field"
-import { getSpaceDetail,  updateSpaceCode } from "@/features/space";
-
-
+import { FieldList, FieldAddForm, DetailedFieldInfo } from "@/features/field";
+import { getSpaceDetail, updateSpaceCode } from "@/features/space";
 
 const Space = () => {
   const { spaceId } = useParams();
   const dispatch = useDispatch();
   const spaceDetail = useSelector((state) => state.space);
   const fieldData = useSelector((state) => state.field);
+  const [activeFieldInfo, setActiveFieldInfo] = useState(null);
 
   useEffect(() => {
     dispatch(updateSpaceCode(spaceId));
@@ -40,11 +39,20 @@ const Space = () => {
   }
 
   return (
-    <div className="flex-1 flex overflow-hidden">
+    <div className="flex-1 flex overflow-hidden mt-10">
       <div className="grid  w-screen">
         <div className=" relative p-2  ">
           <FieldAddForm spaceId={spaceId} />
-          <Fields spaceId={spaceId} spaceDetail={spaceDetail} />
+          <Fields
+            spaceId={spaceId}
+            spaceDetail={spaceDetail}
+            setActiveFieldInfo={setActiveFieldInfo}
+          />
+          <DetailedFieldInfo
+            spaceId={spaceId}
+            activeFieldInfo={activeFieldInfo}
+            setActiveFieldInfo={setActiveFieldInfo}
+          />
         </div>
       </div>
     </div>
@@ -53,10 +61,16 @@ const Space = () => {
 
 export default Space;
 
-const Fields = ({ spaceId, spaceDetail }) => {
+const Fields = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
   if (!spaceDetail?.data?.length) {
     return <p>No fields available</p>;
   }
 
-  return <FieldList spaceId={spaceId} spaceDetail={spaceDetail} />;
+  return (
+    <FieldList
+      spaceId={spaceId}
+      spaceDetail={spaceDetail}
+      setActiveFieldInfo={setActiveFieldInfo}
+    />
+  );
 };

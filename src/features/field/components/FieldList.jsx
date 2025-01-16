@@ -1,8 +1,8 @@
 import { useMemo, useRef, useEffect, useState } from "react";
 import FieldActions from "./FieldActions";
-import FieldModel from "./FieldModel";
+import { DetailedFieldInfo } from "./DetailedFieldInfo";
 
-export const FieldList = ({ spaceId, spaceDetail }) => {
+export const FieldList = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
   const listContainerRef = useRef(null);
   const [width, setWidth] = useState(0);
 
@@ -55,6 +55,7 @@ export const FieldList = ({ spaceId, spaceDetail }) => {
                     spaceId={spaceId}
                     details={item}
                     key={item.field_code}
+                    setActiveFieldInfo={setActiveFieldInfo}
                   />
                 ))}
               </div>
@@ -64,15 +65,14 @@ export const FieldList = ({ spaceId, spaceDetail }) => {
   );
 };
 
-
-const Card = ({ spaceId, details }) => {
+const Card = ({ spaceId, details, setActiveFieldInfo }) => {
   const { title, content, last_modified } = details;
-  const [toggleModel, setToggleModel] = useState(false);
+  // const [toggleModel, setToggleModel] = useState(false);
 
   return (
     <div>
       <div
-        onClick={() => setToggleModel(true)}
+        onClick={() => setActiveFieldInfo(details)}
         className="p-4 space-y-2 rounded-md border border-outlineWhite cursor-default"
       >
         <div className="flex justify-between items-start">
@@ -80,17 +80,20 @@ const Card = ({ spaceId, details }) => {
           <FieldActions spaceId={spaceId} details={details} />
         </div>
         <div className="max-h-96 overflow-y-hidden">
-          <p dangerouslySetInnerHTML={{ __html: content }} />
+          <p
+            className=" text-sm"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         </div>
         <p className="text-xs text-end">Edited: {last_modified}</p>
       </div>
-      {toggleModel && (
-        <FieldModel
+      {/* {toggleModel && (
+        <DetailedFieldInfo
           details={details}
           toggleModel={toggleModel}
           setToggleModel={setToggleModel}
         />
-      )}
+      )} */}
     </div>
   );
 };
