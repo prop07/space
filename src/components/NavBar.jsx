@@ -9,7 +9,7 @@ const NavBar = () => {
   const path = useLocation();
   const { cloudStatus } = useCloudStatus();
   return (
-    <div className=" fixed bg-neutral-900 w-full z-50">
+    <div className=" fixed bg-primary w-full z-50">
       <div className="flex  justify-between items-center p-2">
         <div className="px-2 font-semibold tracking-widest">
           <Link to={"/"}>Space</Link>

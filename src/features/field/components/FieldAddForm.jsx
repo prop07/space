@@ -102,7 +102,9 @@ export const FieldAddForm = ({ spaceId }) => {
           />
           <CustomEditor
             value={formData.content}
-            setFormData={setFormData}
+            onChange={(value) =>
+              setFormData((prev) => ({ ...prev, content: value }))
+            }
             closeForm={handleClose}
           />
         </div>

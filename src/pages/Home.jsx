@@ -7,7 +7,7 @@ import {
   showSuccessToast,
   showErrorToast,
 } from "@/components/notifications/Toast";
-import { useCreateSpace , useFindSpace } from "@/features/space";
+import { useCreateSpace, useFindSpace } from "@/features/space";
 import useScreenWidth from "@/hooks/useScreenWidth";
 import { Toolip } from "@/components/ui/Toolip";
 
@@ -69,17 +69,17 @@ const Home = () => {
               <input
                 onChange={(e) => setSearchQuery(e.target.value.trim())}
                 onKeyDown={handleKeyDown}
-                className="bg-neutral-800 pb-2 pt-3 px-3 w-full rounded-t-md focus:outline-none border-t border-x border-outlineWhite"
+                className="bg-secondary pb-2 pt-3 px-3 w-full rounded-t-md focus:outline-none border-t border-x border-outlineWhite"
                 type="text"
                 placeholder="Enter space code !"
                 id="inputField"
                 autoFocus
               />
               <label htmlFor="inputField">
-                <div className="bg-neutral-800 cursor-text flex justify-between  rounded-b-md px-3 py-3 border-b border-x border-outlineWhite">
+                <div className="bg-secondary cursor-text flex justify-between  rounded-b-md px-3 py-3 border-b border-x border-outlineWhite">
                   <button
                     onClick={generateSpace}
-                    className="bg-neutral-800 text-sm flex items-center gap-2  font-semibold text-neutral-300 cursor-pointer hover:bg-neutral-700 border py-1 px-2 rounded-md border-outlineWhite "
+                    className="bg-secondary text-sm flex items-center gap-2  font-semibold text-neutral-300 cursor-pointer hover:bg-neutral-700 border py-1 px-2 rounded-md border-outlineWhite "
                   >
                     Create Space <FaPlus className="text-white" size={13} />
                   </button>
@@ -97,7 +97,7 @@ const Home = () => {
                       </Link>
                     ) : (
                       <Toolip title={"Enter valid code"}>
-                        <button className="text-sm font-semibold border py-2 px-2 rounded-md bg-neutral-700 border-neutral-700 text-neutral-800 cursor-default">
+                        <button className="text-sm font-semibold border py-2 px-2 rounded-md bg-neutral-700 border-neutral-700 text-secondary cursor-default">
                           <FaArrowUp className="rotate-90" />
                         </button>
                       </Toolip>

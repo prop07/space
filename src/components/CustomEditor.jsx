@@ -4,13 +4,9 @@ import { FiBold, FiItalic, FiUnderline } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const CustomEditor = ({ value, setFormData, closeForm }) => {
+const CustomEditor = ({ value, onChange, closeForm }) => {
   const [activeTools, setActiveTools] = useState([]);
   const quillRef = useRef(null);
-
-  const handleEditorChange = (value) => {
-    setFormData((prev) => ({ ...prev, content: value }));
-  };
 
   const toggleTool = (format) => {
     const editor = quillRef.current?.getEditor();
@@ -44,7 +40,7 @@ const CustomEditor = ({ value, setFormData, closeForm }) => {
           <ReactQuill
             ref={quillRef}
             value={value}
-            onChange={handleEditorChange}
+            onChange={onChange}
             placeholder="Body......"
             theme="snow"
             className="editor"

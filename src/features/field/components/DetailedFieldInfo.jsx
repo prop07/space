@@ -18,16 +18,12 @@ export const DetailedFieldInfo = ({
   const { cloudStatus, setCloudStatus } = useCloudStatus();
   const dispatch = useDispatch();
   const { title, content, last_modified, field_code } = activeFieldInfo || {};
-  const [formData, setFormData] = useState({ title: "", content: "" });
   const inputRef = useRef(null);
   const debounceTimeout = useRef(null);
-
-  useEffect(() => {
-    setFormData({
-      title: title || "",
-      content: content || "",
-    });
-  }, [activeFieldInfo]);
+  const [formData, setFormData] = useState({
+    title: null,
+    content: null,
+  });
 
   useEffect(() => {
     if (inputRef.current) {
@@ -35,7 +31,15 @@ export const DetailedFieldInfo = ({
     }
   }, [activeFieldInfo]);
 
-  const handleUpdate = () => {
+  useEffect(() => {
+    setFormData({
+      title: title || null,
+      content: content || null,
+    });
+  }, [activeFieldInfo]);
+
+  const handleUpdate = (data) => {
+    console.log("data: ", data);
     if (debounceTimeout.current) {
       clearTimeout(debounceTimeout.current);
     }
@@ -47,48 +51,18 @@ export const DetailedFieldInfo = ({
         updateField({
           id: spaceId,
           fieldData: {
-            ...formData,
+            ...data,
             field_code: field_code,
           },
         })
       );
       debounceTimeout.current = null;
     }, 2000);
-    // }
-  };
-
-  useEffect(() => {
-    if (
-      formData.title &&
-      formData.content &&
-      (title !== formData.title || content !== formData.content)
-    ) {
-      handleUpdate();
-    }
-  }, [formData]);
-
-  const onClose = () => {
-    if (formData.title === "" && formData.content === "<p><br></p>") {
-      setCloudStatus("pending");
-      console.log("running delete");
-      debounceTimeout.current = setTimeout(() => {
-        dispatch(
-          deleteField({
-            id: spaceId,
-            fieldData: {
-              field_code: field_code,
-            },
-          })
-        );
-        debounceTimeout.current = null;
-      }, 2000);
-    }
-    setActiveFieldInfo(null);
   };
 
   return (
     <div
-      onClick={() => onClose()}
+      onClick={() => setActiveFieldInfo(null)}
       className={`${
         activeFieldInfo ? "fixed" : "hidden"
       } h-screen w-full grid place-items-center inset-0 bg-neutral-900 bg-opacity-75 z-50`}
@@ -101,7 +75,8 @@ export const DetailedFieldInfo = ({
           <input
             ref={inputRef}
             onChange={(e) => {
-              setFormData((prev) => ({ ...prev, title: e.target.value }));
+              handleUpdate({ ...formData, title: e.target.value }),
+                setFormData((prev) => ({ ...prev, title: e.target.value }));
             }}
             className="bg-transparent break-words text-lg font-semibold w-full focus:outline-none"
             type="text"
@@ -111,15 +86,17 @@ export const DetailedFieldInfo = ({
           />
           <CustomEditor
             value={formData.content}
-            setFormData={setFormData}
-            // closeForm={handleClose}
+            onChange={(value) => {
+              handleUpdate({ ...formData, content: value }),
+                setFormData((prev) => ({ ...prev, content: value }));
+            }}
           />
         </div>
 
         <div className="flex justify-between items-center mt-2">
           <p className="text-xs">Edited: {last_modified}</p>
           <button
-            onClick={() => onClose()}
+            onClick={() => setActiveFieldInfo(null)}
             className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
           >
             Close
