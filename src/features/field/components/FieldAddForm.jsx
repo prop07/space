@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addField, resetField, updateField } from "@/features/field";
+import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
 
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import CustomEditor from "@/components/CustomEditor";
@@ -58,14 +59,14 @@ export const FieldAddForm = ({ spaceId }) => {
             })
           );
           debounceTimeout.current = null;
-        }, 2000);
+        }, KEY_DEBOUNCE_DELAY);
       } else if (formData.title && formData.content) {
         setCloudStatus("pending");
         console.log("running add");
         debounceTimeout.current = setTimeout(() => {
           dispatch(addField({ id: spaceId, fieldData: formData }));
           debounceTimeout.current = null;
-        }, 2000);
+        }, KEY_DEBOUNCE_DELAY);
       }
     };
 

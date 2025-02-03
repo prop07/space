@@ -9,8 +9,11 @@ import {
 } from "@/features/field";
 
 import { useCloudStatus } from "@/context/CloudStatusProvider";
+import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
 
 export const DetailedFieldInfo = ({
+  detailsModel,
+  setDetailsModel,
   activeFieldInfo,
   setActiveFieldInfo,
   spaceId,
@@ -57,14 +60,14 @@ export const DetailedFieldInfo = ({
         })
       );
       debounceTimeout.current = null;
-    }, 2000);
+    }, KEY_DEBOUNCE_DELAY);
   };
 
   return (
     <div
-      onClick={() => setActiveFieldInfo(null)}
+      onClick={() => setDetailsModel(false)}
       className={`${
-        activeFieldInfo ? "fixed" : "hidden"
+        detailsModel ? "fixed" : "hidden"
       } h-screen w-full grid place-items-center inset-0 bg-neutral-900 bg-opacity-75 z-50`}
     >
       <div
@@ -96,7 +99,7 @@ export const DetailedFieldInfo = ({
         <div className="flex justify-between items-center mt-2">
           <p className="text-xs">Edited: {last_modified}</p>
           <button
-            onClick={() => setActiveFieldInfo(null)}
+            onClick={() => setDetailsModel(false)}
             className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
           >
             Close

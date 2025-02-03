@@ -1,9 +1,9 @@
-import CustomEditor from "./CustomEditor";
+import TopLoadingBar from "./TopLoadingBar";
 
 const Demo = () => {
   return (
-    <div className="p-10 space-y-4">
-      <CustomEditor />
+    <div className="py-10 space-y-4">
+      <TopLoadingBar />
     </div>
   );
 };

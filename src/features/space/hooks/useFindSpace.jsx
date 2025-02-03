@@ -1,6 +1,7 @@
 import useHttp from "@/hooks/useHttp";
 
 import { useRef, useEffect } from "react";
+import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
 
 export const useFindSpace = (space_code) => {
   const { data, status, message, setStatus, fetchData } = useHttp(
@@ -19,7 +20,7 @@ export const useFindSpace = (space_code) => {
 
     timeoutRef.current = setTimeout(() => {
       fetchData();
-    }, 2000);
+    }, KEY_DEBOUNCE_DELAY);
   };
 
   const reset = () => {
@@ -38,4 +39,3 @@ export const useFindSpace = (space_code) => {
     reset,
   };
 };
-

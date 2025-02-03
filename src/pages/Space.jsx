@@ -11,11 +11,18 @@ const Space = () => {
   const spaceDetail = useSelector((state) => state.space);
   const fieldData = useSelector((state) => state.field);
   const [activeFieldInfo, setActiveFieldInfo] = useState(null);
+  const [detailsModel, setDetailsModel] = useState(false);
 
   useEffect(() => {
     dispatch(updateSpaceCode(spaceId));
     dispatch(getSpaceDetail(spaceId));
   }, []);
+
+  useEffect(() => {
+    if (activeFieldInfo) {
+      setDetailsModel(true);
+    }
+  }, [activeFieldInfo]);
 
   useEffect(() => {
     if (fieldData.status === "error") {
@@ -52,6 +59,8 @@ const Space = () => {
             spaceId={spaceId}
             activeFieldInfo={activeFieldInfo}
             setActiveFieldInfo={setActiveFieldInfo}
+            detailsModel={detailsModel}
+            setDetailsModel={setDetailsModel}
           />
         </div>
       </div>
