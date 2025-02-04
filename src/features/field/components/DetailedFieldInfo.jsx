@@ -6,14 +6,13 @@ import {
   resetField,
   updateField,
   deleteField,
+  handleUpdateField,
 } from "@/features/field";
 
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
 
 export const DetailedFieldInfo = ({
-  detailsModel,
-  setDetailsModel,
   activeFieldInfo,
   setActiveFieldInfo,
   spaceId,
@@ -42,32 +41,39 @@ export const DetailedFieldInfo = ({
   }, [activeFieldInfo]);
 
   const handleUpdate = (data) => {
-    console.log("data: ", data);
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current);
+    if (title && content) {
+      setCloudStatus("pending");
+      const fieldDate = { ...data, field_code: field_code };
+      if (data.title && data.content) {
+        handleUpdateField(fieldDate, dispatch, spaceId);
+      }
+      // debounceTimeout.current = setTimeout(() => {
+      //   console.log("running update");
+      //   const fieldData = {
+      //     ...data,
+      //     field_code: field_code,
+      //   };
+      //   dispatch(
+      //     updateField({
+      //       id: spaceId,
+      //       fieldData: fieldData,
+      //     })
+      //   );
+      //   debounceTimeout.current = null;
+      // }, KEY_DEBOUNCE_DELAY);
     }
-    // if (formData.title && formData.content) {
-    setCloudStatus("pending");
-    debounceTimeout.current = setTimeout(() => {
-      console.log("running update");
-      dispatch(
-        updateField({
-          id: spaceId,
-          fieldData: {
-            ...data,
-            field_code: field_code,
-          },
-        })
-      );
-      debounceTimeout.current = null;
-    }, KEY_DEBOUNCE_DELAY);
+  };
+
+  const handleClose = () => {
+    setActiveFieldInfo(null);
+    dispatch(resetField());
   };
 
   return (
     <div
-      onClick={() => setDetailsModel(false)}
+      onClick={handleClose}
       className={`${
-        detailsModel ? "fixed" : "hidden"
+        activeFieldInfo ? "fixed" : "hidden"
       } h-screen w-full grid place-items-center inset-0 bg-neutral-900 bg-opacity-75 z-50`}
     >
       <div
@@ -99,7 +105,7 @@ export const DetailedFieldInfo = ({
         <div className="flex justify-between items-center mt-2">
           <p className="text-xs">Edited: {last_modified}</p>
           <button
-            onClick={() => setDetailsModel(false)}
+            onClick={handleClose}
             className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
           >
             Close

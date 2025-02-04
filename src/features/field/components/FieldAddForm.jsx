@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addField, resetField, updateField } from "@/features/field";
+import {
+  addField,
+  resetField,
+  updateField,
+  handleUpdateField,
+} from "@/features/field";
 import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
 
 import { useCloudStatus } from "@/context/CloudStatusProvider";
@@ -10,7 +15,7 @@ export const FieldAddForm = ({ spaceId }) => {
   const [toggleForm, setToggleForm] = useState(false);
   const [formData, setFormData] = useState({ title: "", content: "" });
   const { cloudStatus, setCloudStatus } = useCloudStatus();
-  const fieldData = useSelector((state) => state.field);
+  const fieldDetails = useSelector((state) => state.field);
 
   const dispatch = useDispatch();
   const inputRef = useRef(null);
@@ -42,25 +47,31 @@ export const FieldAddForm = ({ spaceId }) => {
 
   useEffect(() => {
     const addValue = () => {
-      if (debounceTimeout.current) {
-        clearTimeout(debounceTimeout.current);
-      }
-      if (fieldData.data && formData.title && formData.content) {
+      if (fieldDetails.data && formData.title && formData.content) {
         setCloudStatus("pending");
-        console.log("running update");
-        debounceTimeout.current = setTimeout(() => {
-          dispatch(
-            updateField({
-              id: spaceId,
-              fieldData: {
-                ...formData,
-                field_code: fieldData.data.field.field_code,
-              },
-            })
-          );
-          debounceTimeout.current = null;
-        }, KEY_DEBOUNCE_DELAY);
+        const fieldData = {
+          ...formData,
+          field_code: fieldDetails.data.field.field_code,
+        };
+        handleUpdateField(fieldData, dispatch, spaceId);
+        // console.log("running update");
+        // debounceTimeout.current = setTimeout(() => {
+        //   dispatch(
+        //     updateField({
+        //       id: spaceId,
+        //       fieldData: {
+        //         ...formData,
+        //         field_code: fieldData.data.field.field_code,
+        //       },
+        //     })
+        //   );
+        //   debounceTimeout.current = null;
+        // }, KEY_DEBOUNCE_DELAY);
       } else if (formData.title && formData.content) {
+        if (debounceTimeout.current) {
+          clearTimeout(debounceTimeout.current);
+        }
+
         setCloudStatus("pending");
         console.log("running add");
         debounceTimeout.current = setTimeout(() => {
