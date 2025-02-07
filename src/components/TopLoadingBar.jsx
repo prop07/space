@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router";
 import { useCloudStatus } from "../context/CloudStatusProvider";
 
 const TopLoadingBar = () => {
   const { cloudStatus } = useCloudStatus();
+  const location = useLocation();
   const [progress, setProgress] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [opacityDelay, setOpacityDelay] = useState(false);
@@ -18,8 +20,16 @@ const TopLoadingBar = () => {
     }
   }, [cloudStatus]);
 
+  useEffect(() => {
+    setProgress(0);
+    setCompleted(false);
+    setOpacityDelay(false);
+    startProgress();
+    setTimeout(() => setProgress(100), 750);
+  }, [location.pathname]);
+
   const startProgress = () => {
-    setProgress(1); // Ensure the effect triggers
+    setProgress(1);
 
     const getRandomIncrement = () => {
       const weights = [2, 3, 9, 12, 15];
@@ -40,7 +50,6 @@ const TopLoadingBar = () => {
       setProgress((prev) => {
         if (prev >= stopAtRandom) {
           clearInterval(interval);
-          //   setCompleted(true);
           return prev;
         }
         return Math.min(prev + getRandomIncrement(), 100);
@@ -50,7 +59,7 @@ const TopLoadingBar = () => {
 
   useEffect(() => {
     if (completed) {
-      const opacityTimeout = setTimeout(() => setOpacityDelay(true), 200);
+      const opacityTimeout = setTimeout(() => setOpacityDelay(true), 150);
       const resetTimeout = setTimeout(() => setCompleted(false), 2500);
 
       return () => {
@@ -63,32 +72,13 @@ const TopLoadingBar = () => {
   return (
     <div>
       <div
-        className="fixed top-0 left-0  h-[3px] bg-white "
+        className="fixed top-0 left-0 h-[3px] bg-white"
         style={{
           width: `${progress}%`,
           opacity: opacityDelay || progress === 100 || completed ? 0 : 1,
           transition: "width 0.1s ease-out, opacity 0.5s ease-out",
         }}
       />
-      {/* <div className="p-10 flex gap-2">
-        <button
-          onClick={() => {
-            setProgress(0);
-            setCompleted(false);
-            setOpacityDelay(false);
-            startProgress(); // Restart progress
-          }}
-          className="border border-white p-2 rounded-md"
-        >
-          Initiate
-        </button>
-        <button
-          onClick={() => setProgress(100)}
-          className="border border-white p-2 rounded-md"
-        >
-          Fullfill
-        </button>
-      </div> */}
     </div>
   );
 };

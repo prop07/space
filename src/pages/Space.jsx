@@ -12,7 +12,9 @@ const Space = () => {
   const fieldData = useSelector((state) => state.field);
   const [activeFieldInfo, setActiveFieldInfo] = useState(null);
 
-  console.log(fieldData);
+  useEffect(() => {
+    console.log("field data: ", JSON.stringify(fieldData, null, 2));
+  }, [fieldData]);
 
   useEffect(() => {
     dispatch(updateSpaceCode(spaceId));
