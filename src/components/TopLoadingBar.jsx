@@ -6,31 +6,29 @@ const TopLoadingBar = () => {
   const { cloudStatus } = useCloudStatus();
   const location = useLocation();
   const [progress, setProgress] = useState(0);
-  const [completed, setCompleted] = useState(false);
-  const [opacityDelay, setOpacityDelay] = useState(false);
+  const [display, setDisplay] = useState(false);
 
   useEffect(() => {
     if (cloudStatus === "pending") {
-      setProgress(0);
-      setCompleted(false);
-      setOpacityDelay(false);
+      setDisplay(true);
       startProgress();
     } else {
       setProgress(100);
+      setTimeout(() => setProgress(100), 250);
+      setTimeout(() => setDisplay(false), 500);
+      setTimeout(() => setProgress(0), 1000);
     }
   }, [cloudStatus]);
 
   useEffect(() => {
-    setProgress(0);
-    setCompleted(false);
-    setOpacityDelay(false);
+    setDisplay(true);
     startProgress();
-    setTimeout(() => setProgress(100), 750);
+    setTimeout(() => setProgress(100), 250);
+    setTimeout(() => setDisplay(false), 500);
+    setTimeout(() => setProgress(0), 800);
   }, [location.pathname]);
 
   const startProgress = () => {
-    setProgress(1);
-
     const getRandomIncrement = () => {
       const weights = [2, 3, 9, 12, 15];
       const probabilities = [0.15, 0.2, 0.2, 0.15, 0.1];
@@ -57,26 +55,14 @@ const TopLoadingBar = () => {
     }, 100);
   };
 
-  useEffect(() => {
-    if (completed) {
-      const opacityTimeout = setTimeout(() => setOpacityDelay(true), 150);
-      const resetTimeout = setTimeout(() => setCompleted(false), 2500);
-
-      return () => {
-        clearTimeout(opacityTimeout);
-        clearTimeout(resetTimeout);
-      };
-    }
-  }, [completed]);
-
   return (
     <div>
       <div
         className="fixed top-0 left-0 h-[3px] bg-white"
         style={{
           width: `${progress}%`,
-          opacity: opacityDelay || progress === 100 || completed ? 0 : 1,
-          transition: "width 0.1s ease-out, opacity 0.5s ease-out",
+          opacity: display ? 1 : 0,
+          transition: "width 0.25s ease-out, opacity 0.5s ease-out",
         }}
       />
     </div>
