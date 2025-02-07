@@ -56,16 +56,14 @@ const TopLoadingBar = () => {
   };
 
   return (
-    <div>
-      <div
-        className="fixed top-0 left-0 h-[3px] bg-white"
-        style={{
-          width: `${progress}%`,
-          opacity: display ? 1 : 0,
-          transition: "width 0.25s ease-out, opacity 0.5s ease-out",
-        }}
-      />
-    </div>
+    <div
+      className="fixed top-0 left-0 h-[3px] bg-white z-50"
+      style={{
+        width: `${progress}%`,
+        opacity: display ? 1 : 0,
+        transition: "width 0.25s ease-out, opacity 0.5s ease-out",
+      }}
+    />
   );
 };
 
