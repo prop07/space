@@ -43,7 +43,7 @@ export const FieldAddForm = ({ spaceId }) => {
     if (!toggleForm) {
       dispatch(resetField());
     }
-  }, [toggleForm]);
+  }, [toggleForm, fieldDetails]);
 
   useEffect(() => {
     const addValue = () => {
@@ -54,19 +54,6 @@ export const FieldAddForm = ({ spaceId }) => {
           field_code: fieldDetails.data.field.field_code,
         };
         handleUpdateField(fieldData, dispatch, spaceId);
-        // console.log("running update");
-        // debounceTimeout.current = setTimeout(() => {
-        //   dispatch(
-        //     updateField({
-        //       id: spaceId,
-        //       fieldData: {
-        //         ...formData,
-        //         field_code: fieldData.data.field.field_code,
-        //       },
-        //     })
-        //   );
-        //   debounceTimeout.current = null;
-        // }, KEY_DEBOUNCE_DELAY);
       } else if (formData.title && formData.content) {
         if (debounceTimeout.current) {
           clearTimeout(debounceTimeout.current);
