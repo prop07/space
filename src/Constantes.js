@@ -1,1 +1,1 @@
-export const KEY_DEBOUNCE_DELAY = 1500;
+export const KEY_DEBOUNCE_DELAY = 1000;

@@ -10,7 +10,7 @@ import {
 } from "@/features/field";
 
 import { useCloudStatus } from "@/context/CloudStatusProvider";
-import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
+import Modal from "../../../components/models/Modal";
 
 export const DetailedFieldInfo = ({
   activeFieldInfo,
@@ -70,48 +70,42 @@ export const DetailedFieldInfo = ({
   };
 
   return (
-    <div
-      onClick={handleClose}
-      className={`${
-        activeFieldInfo ? "fixed" : "hidden"
-      } h-screen w-full grid place-items-center inset-0 bg-neutral-900 bg-opacity-75 z-50`}
+    <Modal
+      isOpen={activeFieldInfo ? true : false}
+      onClose={() => handleClose()}
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="border z-20 Sm:-mt-[30vh] max-w-[300px] sm:min-w-[600px]  border-outlineWhite p-3 rounded-md bg-neutral-900"
-      >
-        <div className=" space-y-4">
-          <input
-            ref={inputRef}
-            onChange={(e) => {
-              handleUpdate({ ...formData, title: e.target.value }),
-                setFormData((prev) => ({ ...prev, title: e.target.value }));
-            }}
-            className="bg-transparent break-words text-lg font-semibold w-full focus:outline-none"
-            type="text"
-            value={formData.title || ""}
-            placeholder="Heading"
-            id="inputTitle"
-          />
-          <CustomEditor
-            value={formData.content}
-            onChange={(value) => {
-              handleUpdate({ ...formData, content: value }),
-                setFormData((prev) => ({ ...prev, content: value }));
-            }}
-          />
-        </div>
-
-        <div className="flex justify-between items-center mt-2">
-          <p className="text-xs">Edited: {last_modified}</p>
-          <button
-            onClick={handleClose}
-            className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
-          >
-            Close
-          </button>
-        </div>
+      <div className=" space-y-4">
+        <input
+          ref={inputRef}
+          onChange={(e) => {
+            handleUpdate({ ...formData, title: e.target.value }),
+              setFormData((prev) => ({ ...prev, title: e.target.value }));
+          }}
+          className="bg-transparent break-words text-lg font-semibold w-full focus:outline-none"
+          type="text"
+          value={formData.title || ""}
+          placeholder="Heading"
+          id="inputTitle"
+        />
+        <CustomEditor
+          editorName={"infoFormEditor"}
+          value={formData.content}
+          onChange={(value) => {
+            handleUpdate({ ...formData, content: value }),
+              setFormData((prev) => ({ ...prev, content: value }));
+          }}
+        />
       </div>
-    </div>
+
+      <div className="flex justify-between items-center mt-2">
+        <p className="text-xs">Edited: {last_modified}</p>
+        <button
+          onClick={handleClose}
+          className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
+        >
+          Close
+        </button>
+      </div>
+    </Modal>
   );
 };

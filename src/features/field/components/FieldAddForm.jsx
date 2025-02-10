@@ -40,9 +40,7 @@ export const FieldAddForm = ({ spaceId }) => {
     if (toggleForm && inputRef.current) {
       inputRef.current.focus();
     }
-    if (!toggleForm) {
-      dispatch(resetField());
-    }
+    dispatch(resetField());
   }, [toggleForm, fieldDetails]);
 
   useEffect(() => {
@@ -82,7 +80,7 @@ export const FieldAddForm = ({ spaceId }) => {
         onClick={() => setToggleForm(true)}
         className={`${
           toggleForm ? "hidden" : "block"
-        } border border-outlineWhite font-semibold p-2 rounded-md w-full text-start cursor-text`}
+        } border border-outlineWhite font-semibold p-2 rounded-md w-full text-start cursor-text  `}
       >
         List anything...
       </button>
@@ -100,6 +98,7 @@ export const FieldAddForm = ({ spaceId }) => {
             id="inputTitle"
           />
           <CustomEditor
+            editorName={"addFormEditor"}
             value={formData.content}
             onChange={(value) =>
               setFormData((prev) => ({ ...prev, content: value }))

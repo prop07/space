@@ -25,17 +25,19 @@ ul li {
   left: -0px !important;
 }
 
-/* Optional: Style the editor content text color */
 .ql-editor {
   color: white;
   padding: 0 !important;
 }
 
-/* Remove default Quill borders if needed */
 .ql-container.ql-snow {
   border: none;
 }
 
 .ql-editor:focus {
   outline: none;
+}
+
+.editor .ql-editor {
+  padding: 16px;
 }

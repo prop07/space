@@ -1,9 +1,14 @@
-import TopLoadingBar from "./TopLoadingBar";
+import { useState } from "react";
+import Modal from "./models/Modal";
 
 const Demo = () => {
+  const [toggleModal, setToggleModal] = useState(false);
   return (
-    <div className="py-10 space-y-4">
-      <TopLoadingBar />
+    <div className="py-10 ">
+      <Modal isOpen={toggleModal} onClose={() => setToggleModal(false)}>
+        Hello
+      </Modal>
+      <button onClick={() => setToggleModal(true)}>Open Modal</button>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { FiBold, FiItalic, FiUnderline } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const CustomEditor = ({ value, onChange, closeForm }) => {
+const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
   const [activeTools, setActiveTools] = useState([]);
   const quillRef = useRef(null);
 
@@ -33,18 +33,31 @@ const CustomEditor = ({ value, onChange, closeForm }) => {
     }
   };
 
+  const handleChange = (content) => {
+    console.log(content.endsWith("<p><br></p>"));
+    if (content.endsWith("<p><br></p>")) {
+      const editorContainer = document.querySelector("." + editorName); // Select by class name
+      if (editorContainer) {
+        editorContainer.scrollBy({ top: 30, behavior: "auto" });
+      }
+    }
+    onChange(content);
+  };
   return (
     <div>
-      <div className="flex flex-col  cursor-text" onClick={handleParentClick}>
-        <div className="min-h-[50px]">
+      <div className=" cursor-text " onClick={handleParentClick}>
+        <div
+          className={editorName}
+          style={{ maxHeight: "300px ", overflowY: "auto" }}
+        >
           <ReactQuill
             ref={quillRef}
             value={value}
-            onChange={onChange}
+            onChange={handleChange}
             placeholder="Body......"
             theme="snow"
             className="editor"
-            style={{ maxHeight: "400px", overflowY: "scroll" }}
+            style={{ height: "100%", overflowY: "auto" }}
             modules={{
               toolbar: false,
             }}
