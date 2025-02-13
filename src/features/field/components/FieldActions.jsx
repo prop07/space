@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { deleteField } from "../index";
+import Button from "../../../components/ui/button/Button";
 
 const FieldActions = ({ spaceId, details }) => {
   const dispatch = useDispatch();
@@ -38,14 +39,12 @@ const FieldActions = ({ spaceId, details }) => {
       className={`${toggleAction ? "relative" : "block"}`}
       ref={menuRef}
     >
-      <button
-        className="cursor-pointer py-2 px-2 hover:bg-neutral-800 rounded-md"
+      <Button
         onClick={() => {
           setToggleAction(!toggleAction);
         }}
-      >
-        <BsThreeDotsVertical size={20} />
-      </button>
+        icon={<BsThreeDotsVertical size={20} />}
+      />
       {toggleAction && (
         <div className="absolute top-[70%] -left-20 mt-2 rounded-md inline-block py-1 text-sm tracking-wider bg-black shadow-md border border-outlineWhite">
           <p className="pl-4 whitespace-nowrap pr-2 py-1 cursor-pointer hover:bg-gray-600 ease-in-out duration-200">

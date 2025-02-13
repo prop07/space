@@ -11,6 +11,7 @@ import {
 
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import Modal from "../../../components/models/Modal";
+import Button from "../../../components/ui/button/Button";
 
 export const DetailedFieldInfo = ({
   activeFieldInfo,
@@ -99,12 +100,9 @@ export const DetailedFieldInfo = ({
 
       <div className="flex justify-between items-center mt-2">
         <p className="text-xs">Edited: {last_modified}</p>
-        <button
-          onClick={handleClose}
-          className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
-        >
+        <Button onClick={handleClose} placeHolder={"Close"}>
           Close
-        </button>
+        </Button>
       </div>
     </Modal>
   );

@@ -3,6 +3,7 @@ import { FaList } from "react-icons/fa";
 import { FiBold, FiItalic, FiUnderline } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Button from "./ui/button/Button";
 
 const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
   const [activeTools, setActiveTools] = useState([]);
@@ -111,14 +112,7 @@ const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
             </button>
           </div>
           <div>
-            {closeForm && (
-              <button
-                onClick={closeForm}
-                className="font-semibold cursor-pointer px-3 py-1 hover:bg-neutral-800 rounded-md"
-              >
-                Close
-              </button>
-            )}
+            {closeForm && <Button onClick={closeForm} placeHolder={"Close"} />}
           </div>
         </div>
       </div>

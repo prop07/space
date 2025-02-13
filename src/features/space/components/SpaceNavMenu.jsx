@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Clipboard from "../../../components/ui/Clipboard";
 import { useState } from "react";
 import ShareSpace from "./ShareSpace";
+import Button from "../../../components/ui/button/Button";
 
 export const SpaceNavMenu = () => {
   const spaceDetails = useSelector((state) => state.space);
