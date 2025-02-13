@@ -35,7 +35,7 @@ const FieldActions = ({ spaceId, details }) => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="relative"
+      className={`${toggleAction ? "relative" : "block"}`}
       ref={menuRef}
     >
       <button

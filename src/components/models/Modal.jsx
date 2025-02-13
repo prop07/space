@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, children }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
           onClick={onClose}
         >
           <motion.div

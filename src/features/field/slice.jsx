@@ -5,6 +5,7 @@ const initialState = {
   data: null,
   status: "idle",
   message: null,
+  last_fetch: null,
 };
 
 const fieldSlice = createSlice({
@@ -15,6 +16,7 @@ const fieldSlice = createSlice({
       state.data = null;
       state.status = "idle";
       state.message = null;
+      state.last_fetch = null;
     },
   },
   extraReducers: (builder) => {
@@ -28,11 +30,17 @@ const fieldSlice = createSlice({
       state.data = action.payload.data;
       state.status = "success";
       state.message = action.payload.message || successMessage;
+      state.last_fetch = new Date().toLocaleTimeString("en-GB", {
+        hour12: false,
+      });
     };
 
     const handleRejected = (state, action, failureMessage) => {
       state.status = "error";
       state.message = action.payload || failureMessage;
+      state.last_fetch = new Date().toLocaleTimeString("en-GB", {
+        hour12: false,
+      });
     };
 
     builder

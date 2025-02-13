@@ -2,8 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import NotFound from "./NotFound";
 import Home from "./pages/Home";
 import Space from "./pages/Space";
-import Demo from "./components/Demo";
 import Layout from "./layouts/Layout";
+import Test from "./trash/Test";
 
 const routes = createBrowserRouter([
   {
@@ -22,9 +22,9 @@ const routes = createBrowserRouter([
         handle: { title: "Space" },
       },
       {
-        path: "/demo",
-        element: <Demo />,
-        handle: { title: "demo" },
+        path: "/test",
+        element: <Test />,
+        handle: { title: "test page" },
       },
     ],
   },

@@ -6,6 +6,7 @@ const initialState = {
   status: "idle",
   message: null,
   space_code: null,
+  last_fetch: null,
 };
 
 // Async thunk for fetching space details
@@ -45,11 +46,17 @@ const spaceSlice = createSlice({
         state.data = action.payload.data.fields;
         state.message =
           action.payload.message || "Data retrieved successfully.";
+        state.last_fetch = new Date().toLocaleTimeString("en-GB", {
+          hour12: false,
+        });
       })
       .addCase(getSpaceDetail.rejected, (state, action) => {
         state.status = "error";
         state.data = null;
         state.message = action.payload || "Failed to fetch space data";
+        state.last_fetch = new Date().toLocaleTimeString("en-GB", {
+          hour12: false,
+        });
       });
   },
 });

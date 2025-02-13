@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Modal from "./models/Modal";
+import Modal from "../components/models/Modal";
 
-const Demo = () => {
+const Test = () => {
   const [toggleModal, setToggleModal] = useState(false);
   return (
     <div className="py-10 ">
@@ -13,4 +13,4 @@ const Demo = () => {
   );
 };
 
-export default Demo;
+export default Test;

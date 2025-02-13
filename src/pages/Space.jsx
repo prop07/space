@@ -41,7 +41,7 @@ const Space = () => {
   return (
     <div className="flex-1 flex overflow-hidden mt-10">
       <div className="grid  w-screen">
-        <div className=" relative p-2  ">
+        <div className=" p-2  ">
           <FieldAddForm spaceId={spaceId} />
           <Fields
             spaceId={spaceId}
