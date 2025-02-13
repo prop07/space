@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LuClipboardCheck, LuClipboardList } from "react-icons/lu";
+import { LuCopyCheck, LuCopy } from "react-icons/lu";
 
 const Clipboard = ({ text, children }) => {
   const [copied, setCopied] = useState(false);
@@ -14,9 +14,9 @@ const Clipboard = ({ text, children }) => {
     <div onClick={handleClick} className="flex gap-2 cursor-pointer">
       {children}
       {copied ? (
-        <LuClipboardCheck className=" text-green-500" size={18} />
+        <LuCopyCheck className=" text-green-500" size={18} />
       ) : (
-        <LuClipboardList size={18} />
+        <LuCopy size={18} />
       )}
     </div>
   );
