@@ -35,7 +35,6 @@ const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
   };
 
   const handleChange = (content) => {
-    console.log(content.endsWith("<p><br></p>"));
     if (content.endsWith("<p><br></p>")) {
       const editorContainer = document.querySelector("." + editorName); // Select by class name
       if (editorContainer) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoShareSocialSharp, IoClose } from "react-icons/io5";
+import { IoShareOutline, IoClose } from "react-icons/io5";
 import { GoAlertFill } from "react-icons/go";
 import Modal from "../../../components/models/Modal";
 import Button from "../../../components/ui/button/Button";
@@ -20,7 +20,7 @@ const ShareSpace = () => {
     <div>
       <Button
         onClick={() => setToggleShare(true)}
-        icon={<IoShareSocialSharp size={18} />}
+        icon={<IoShareOutline size={20} />}
       />
       <Modal isOpen={toggleShare} onClose={() => setToggleShare(false)}>
         <div className="">
@@ -61,7 +61,7 @@ const ShareSpace = () => {
             </div>
             <div className=" space-y-2">
               <p className=" text-sm font-semibold">Selected Link</p>
-              <div className=" flex justify-between items-center gap-2 border border-outlineWhite rounded-md p-1">
+              <div className=" flex justify-between items-center gap-2 border border-outlineWhite rounded-md p-2">
                 <p className="max-w-[280px] sm:min-w-[500px] truncate">
                   {activeLink === "viewer" ? (
                     <span>{links.viewer}</span>

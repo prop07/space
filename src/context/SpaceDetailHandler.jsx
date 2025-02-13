@@ -7,10 +7,6 @@ const SpaceDetailHandler = () => {
   const fieldData = useSelector((state) => state.field);
 
   useEffect(() => {
-    console.log(cloudStatus);
-  }, [cloudStatus]);
-
-  useEffect(() => {
     // if (fieldData.status === "success") {
     setCloudStatus("idle");
     // }

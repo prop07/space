@@ -41,7 +41,7 @@ export const FieldAddForm = ({ spaceId }) => {
       inputRef.current.focus();
     }
     dispatch(resetField());
-  }, [toggleForm, fieldDetails]);
+  }, [toggleForm]);
 
   useEffect(() => {
     const addValue = () => {

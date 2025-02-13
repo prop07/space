@@ -1,7 +1,7 @@
 const Button = ({ onClick, icon, placeHolder }) => {
   return (
     <button
-      className="cursor-pointer py-2 px-2 hover:bg-neutral-800 rounded-md"
+      className="cursor-pointer py-2 px-2 hover:bg-neutral-700 rounded-md"
       onClick={onClick}
     >
       <span className=" font-semibold tracking-wider">{placeHolder}</span>
