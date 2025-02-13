@@ -21,7 +21,7 @@ export const DetailedFieldInfo = ({
   const { cloudStatus, setCloudStatus } = useCloudStatus();
   const dispatch = useDispatch();
   const { title, content, last_modified, field_code } = activeFieldInfo || {};
-  const inputRef = useRef(null);
+  const inputHeadingRef = useRef(null);
   const debounceTimeout = useRef(null);
   const [formData, setFormData] = useState({
     title: null,
@@ -29,8 +29,8 @@ export const DetailedFieldInfo = ({
   });
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+    if (inputHeadingRef.current) {
+      inputHeadingRef.current.focus();
     }
   }, [activeFieldInfo]);
 
@@ -77,7 +77,7 @@ export const DetailedFieldInfo = ({
     >
       <div className=" space-y-4">
         <input
-          ref={inputRef}
+          ref={inputHeadingRef}
           onChange={(e) => {
             handleUpdate({ ...formData, title: e.target.value }),
               setFormData((prev) => ({ ...prev, title: e.target.value }));

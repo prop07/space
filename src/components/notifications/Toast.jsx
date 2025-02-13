@@ -1,5 +1,6 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { CgSpinner } from "react-icons/cg";
 
 const Toast = () => {
   return (
@@ -29,4 +30,19 @@ export const showErrorToast = (message) => {
 
 export const showInfoToast = (message) => {
   toast(message);
+};
+
+export const loadingToast = () => {
+  return toast.custom(
+    () => (
+      <div className="flex items-center gap-2 text-white py-2 px-2 border border-outlineWhite rounded-md bg-primary">
+        <CgSpinner className="animate-spin text-white" size={21} />
+        <div>
+          <p className="text-xs font-semibold">Please Wait</p>
+          <p className="text-xs">Previous action is pending</p>
+        </div>
+      </div>
+    ),
+    { duration: 500 }
+  );
 };

@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addField,
-  resetField,
-  updateField,
-  handleUpdateField,
-} from "@/features/field";
+import { addField, resetField, handleUpdateField } from "@/features/field";
+import { loadingToast } from "@/components/notifications/Toast";
 import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
 
 import { useCloudStatus } from "@/context/CloudStatusProvider";
@@ -36,48 +32,58 @@ export const FieldAddForm = ({ spaceId }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (toggleForm && inputRef.current) {
-      inputRef.current.focus();
-    }
-    dispatch(resetField());
-  }, [toggleForm]);
-
-  useEffect(() => {
-    const addValue = () => {
-      if (fieldDetails.data && formData.title && formData.content) {
-        setCloudStatus("pending");
-        const fieldData = {
-          ...formData,
-          field_code: fieldDetails.data.field.field_code,
-        };
-        handleUpdateField(fieldData, dispatch, spaceId);
-      } else if (formData.title && formData.content) {
-        if (debounceTimeout.current) {
-          clearTimeout(debounceTimeout.current);
-        }
-
-        setCloudStatus("pending");
-        console.log("running add");
-        debounceTimeout.current = setTimeout(() => {
-          dispatch(addField({ id: spaceId, fieldData: formData }));
-          debounceTimeout.current = null;
-        }, KEY_DEBOUNCE_DELAY);
+  const handleForm = () => {
+    console.log(formData);
+    if (fieldDetails?.data?.field?.field_code) {
+      console.log("handleUpdate");
+      setCloudStatus("pending");
+      const fieldData = {
+        ...formData,
+        field_code: fieldDetails.data.field.field_code,
+      };
+      handleUpdateField(fieldData, dispatch, spaceId);
+    } else if (
+      formData.title &&
+      formData.content &&
+      formData.content != "<p><br></p>"
+    ) {
+      console.log("add");
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
       }
-    };
 
-    addValue();
-  }, [formData.title, formData.content]);
+      setCloudStatus("pending");
+      debounceTimeout.current = setTimeout(() => {
+        dispatch(addField({ id: spaceId, fieldData: formData }));
+        debounceTimeout.current = null;
+      }, KEY_DEBOUNCE_DELAY);
+    }
+  };
 
-  const handleClose = () => {
-    setToggleForm(false);
+  useEffect(() => {
+    handleForm();
+  }, [formData]);
+
+  useEffect(() => {
+    if (!toggleForm && fieldDetails.data) {
+      dispatch(resetField());
+    }
+  }, [cloudStatus]);
+
+  const openForm = () => {
+    if (cloudStatus === "pending") {
+      loadingToast();
+      return null;
+    }
     setFormData((prev) => ({ ...prev, title: "", content: "" }));
+    dispatch(resetField());
+    setToggleForm(true);
   };
 
   return (
     <div ref={formRef} className=" mb-8 px-2">
       <button
-        onClick={() => setToggleForm(true)}
+        onClick={openForm}
         className={`${
           toggleForm ? "hidden" : "block"
         } border border-outlineWhite font-semibold p-2 rounded-md w-full text-start cursor-text  `}
@@ -103,7 +109,7 @@ export const FieldAddForm = ({ spaceId }) => {
             onChange={(value) =>
               setFormData((prev) => ({ ...prev, content: value }))
             }
-            closeForm={handleClose}
+            closeForm={() => setToggleForm(false)}
           />
         </div>
       </div>
