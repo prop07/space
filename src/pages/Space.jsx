@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import { errorToast } from "@/components/notifications/Toast";
-import { FieldList, FieldAddForm, DetailedFieldInfo } from "@/features/field";
+import { Field, FieldAddForm, DetailedFieldInfo } from "@/features/field";
 import { getSpaceDetail, updateSpaceCode } from "@/features/space";
 
 const Space = () => {
-  const { spaceId } = useParams();
+  const [searchParams] = useSearchParams();
+  const spaceId = searchParams.get("id");
   const dispatch = useDispatch();
   const spaceDetail = useSelector((state) => state.space);
   const fieldData = useSelector((state) => state.field);
@@ -43,7 +44,7 @@ const Space = () => {
       <div className="grid  w-screen">
         <div className=" p-2  ">
           <FieldAddForm spaceId={spaceId} />
-          <Fields
+          <Field
             spaceId={spaceId}
             spaceDetail={spaceDetail}
             setActiveFieldInfo={setActiveFieldInfo}
@@ -60,17 +61,3 @@ const Space = () => {
 };
 
 export default Space;
-
-const Fields = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
-  if (!spaceDetail?.data?.length) {
-    return <p>No fields available</p>;
-  }
-
-  return (
-    <FieldList
-      spaceId={spaceId}
-      spaceDetail={spaceDetail}
-      setActiveFieldInfo={setActiveFieldInfo}
-    />
-  );
-};

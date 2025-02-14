@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     if (createspace.data && createspace.status === "success") {
       successToast(createspace.message);
-      navigate(`/space/${createspace.data.space_code}`);
+      navigate(`/space?id=${createspace.data.space_code}`);
     } else if (createspace.status === "error") {
       errorToast(createspace.message);
     }
@@ -41,7 +41,7 @@ const Home = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && data?.space_code) {
-      navigate(`/space/${data.space_code}`);
+      navigate(`/space?id=${data.space_code}`);
     }
   };
 
@@ -87,7 +87,7 @@ const Home = () => {
                         size={21}
                       />
                     ) : searchQuery && status === "success" ? (
-                      <Link to={`space/${data.space_code}`}>
+                      <Link to={`space?id=${data.space_code}`}>
                         <button className="text-sm font-semibold border py-2 px-2 rounded-md bg-neutral-100 border-neutral-100 text-black cursor-pointer">
                           <FaArrowUp className="rotate-90" />
                         </button>

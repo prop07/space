@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Space from "./pages/Space";
 import Layout from "./layouts/Layout";
 import Test from "./trash/Test";
+import View from "./pages/View";
 
 const routes = createBrowserRouter([
   {
@@ -17,9 +18,14 @@ const routes = createBrowserRouter([
         handle: { title: "Home" },
       },
       {
-        path: "/space/:spaceId",
+        path: "/space",
         element: <Space />,
         handle: { title: "Space" },
+      },
+      {
+        path: "/view",
+        element: <View />,
+        handle: { title: "view" },
       },
       {
         path: "/test",
