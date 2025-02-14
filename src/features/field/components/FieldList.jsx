@@ -35,7 +35,7 @@ export const FieldList = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
   }, [spaceDetail.data, columns]);
 
   return (
-    <div className="p-2  ">
+    <div className="p-2  " onClick={(e) => e.stopPropagation()}>
       <div className="px-2 text-sm mb-2 ">FIELD</div>
       <div
         ref={listContainerRef}

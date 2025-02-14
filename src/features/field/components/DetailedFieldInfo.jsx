@@ -22,7 +22,6 @@ export const DetailedFieldInfo = ({
   const dispatch = useDispatch();
   const { title, content, last_modified, field_code } = activeFieldInfo || {};
   const inputHeadingRef = useRef(null);
-  const debounceTimeout = useRef(null);
   const [formData, setFormData] = useState({
     title: null,
     content: null,
@@ -41,29 +40,37 @@ export const DetailedFieldInfo = ({
     });
   }, [activeFieldInfo]);
 
-  const handleUpdate = (data) => {
-    if (title && content) {
-      setCloudStatus("pending");
-      const fieldDate = { ...data, field_code: field_code };
-      if (data.title && data.content) {
-        handleUpdateField(fieldDate, dispatch, spaceId);
-      }
-      // debounceTimeout.current = setTimeout(() => {
-      //   console.log("running update");
-      //   const fieldData = {
-      //     ...data,
-      //     field_code: field_code,
-      //   };
-      //   dispatch(
-      //     updateField({
-      //       id: spaceId,
-      //       fieldData: fieldData,
-      //     })
-      //   );
-      //   debounceTimeout.current = null;
-      // }, KEY_DEBOUNCE_DELAY);
-    }
+  // const handleUpdate = (data) => {
+  //   if (title && content) {
+  //     setCloudStatus("pending");
+  //     const fieldDate = { ...data, field_code: field_code };
+  //     if (data.title && data.content) {
+  //       handleUpdateField(fieldDate, dispatch, spaceId);
+  //     }
+  //     // debounceTimeout.current = setTimeout(() => {
+  //     //   console.log("running update");
+  //     //   const fieldData = {
+  //     //     ...data,
+  //     //     field_code: field_code,
+  //     //   };
+  //     //   dispatch(
+  //     //     updateField({
+  //     //       id: spaceId,
+  //     //       fieldData: fieldData,
+  //     //     })
+  //     //   );
+  //     //   debounceTimeout.current = null;
+  //     // }, KEY_DEBOUNCE_DELAY);
+  //   }
+  // };
+
+  const handleUpdate = () => {
+    console.log(formData);
   };
+
+  useEffect(() => {
+    handleUpdate();
+  }, [formData]);
 
   const handleClose = () => {
     setActiveFieldInfo(null);
@@ -79,8 +86,7 @@ export const DetailedFieldInfo = ({
         <input
           ref={inputHeadingRef}
           onChange={(e) => {
-            handleUpdate({ ...formData, title: e.target.value }),
-              setFormData((prev) => ({ ...prev, title: e.target.value }));
+            setFormData((prev) => ({ ...prev, title: e.target.value }));
           }}
           className="bg-transparent break-words text-lg font-semibold w-full focus:outline-none"
           type="text"
@@ -92,8 +98,7 @@ export const DetailedFieldInfo = ({
           editorName={"infoFormEditor"}
           value={formData.content}
           onChange={(value) => {
-            handleUpdate({ ...formData, content: value }),
-              setFormData((prev) => ({ ...prev, content: value }));
+            setFormData((prev) => ({ ...prev, content: value }));
           }}
         />
       </div>

@@ -21,8 +21,7 @@ export const FieldAddForm = ({ spaceId }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (formRef.current && !formRef.current.contains(event.target)) {
-        setToggleForm(false);
-        setFormData((prev) => ({ ...prev, title: "", content: "" }));
+        closeForm();
       }
     };
 
@@ -33,7 +32,6 @@ export const FieldAddForm = ({ spaceId }) => {
   }, []);
 
   const handleForm = () => {
-    console.log(formData);
     if (fieldDetails?.data?.field?.field_code) {
       console.log("handleUpdate");
       setCloudStatus("pending");
@@ -41,7 +39,7 @@ export const FieldAddForm = ({ spaceId }) => {
         ...formData,
         field_code: fieldDetails.data.field.field_code,
       };
-      handleUpdateField(fieldData, dispatch, spaceId);
+      handleUpdateField(fieldData, dispatch, spaceId, "fieldAddForm");
     } else if (
       formData.title &&
       formData.content &&
@@ -75,9 +73,14 @@ export const FieldAddForm = ({ spaceId }) => {
       loadingToast();
       return null;
     }
-    setFormData((prev) => ({ ...prev, title: "", content: "" }));
     dispatch(resetField());
     setToggleForm(true);
+  };
+
+  const closeForm = () => {
+    dispatch(resetField());
+    setToggleForm(false);
+    setFormData((prev) => ({ ...prev, title: "", content: "" }));
   };
 
   return (
@@ -90,7 +93,7 @@ export const FieldAddForm = ({ spaceId }) => {
       >
         List anything...
       </button>
-      <div className={`${!toggleForm ? "hidden" : "block"} `}>
+      {toggleForm && (
         <div className=" border border-outlineWhite rounded-md p-2 space-y-1">
           <input
             ref={inputRef}
@@ -109,10 +112,10 @@ export const FieldAddForm = ({ spaceId }) => {
             onChange={(value) =>
               setFormData((prev) => ({ ...prev, content: value }))
             }
-            closeForm={() => setToggleForm(false)}
+            closeForm={closeForm}
           />
         </div>
-      </div>
+      )}
     </div>
   );
 };
