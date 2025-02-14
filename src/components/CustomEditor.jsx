@@ -47,7 +47,7 @@ const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
     <div>
       <div className=" cursor-text " onClick={handleParentClick}>
         <div
-          className={`${editorName} max-h-[300px] sm:max-h-[500px] overflow-y-scroll`}
+          className={`${editorName} max-h-[300px] sm:max-h-[580px] overflow-y-scroll`}
           // style={{ maxHeight: "300px ", overflowY: "auto" }}
         >
           <ReactQuill

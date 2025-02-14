@@ -1,8 +1,9 @@
 import { useMemo, useRef, useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import FieldActions from "./FieldActions";
-import { DetailedFieldInfo } from "./DetailedFieldInfo";
 
 export const FieldList = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
+  const path = useLocation();
   const listContainerRef = useRef(null);
   const [width, setWidth] = useState(0);
 
@@ -36,7 +37,7 @@ export const FieldList = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
 
   return (
     <div className="p-2  " onClick={(e) => e.stopPropagation()}>
-      <div className="px-2 text-sm mb-2 ">FIELD</div>
+      <div className="px-2 text-sm mb-2 tracking-wider ">FIELD</div>
       <div
         ref={listContainerRef}
         className="grid gap-4"
@@ -52,6 +53,7 @@ export const FieldList = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
               <div key={column} className="space-y-4">
                 {data[column].map((item) => (
                   <Card
+                    path={path.pathname}
                     spaceId={spaceId}
                     details={item}
                     key={item.field_code}
@@ -65,9 +67,8 @@ export const FieldList = ({ spaceId, spaceDetail, setActiveFieldInfo }) => {
   );
 };
 
-const Card = ({ spaceId, details, setActiveFieldInfo }) => {
+const Card = ({ spaceId, details, setActiveFieldInfo, path }) => {
   const { title, content, last_modified } = details;
-  // const [toggleModel, setToggleModel] = useState(false);
 
   return (
     <div>
@@ -77,7 +78,9 @@ const Card = ({ spaceId, details, setActiveFieldInfo }) => {
       >
         <div className="flex justify-between items-start">
           <h1 className="font-semibold break-words">{title}</h1>
-          <FieldActions spaceId={spaceId} details={details} />
+          {path === "/space" && (
+            <FieldActions spaceId={spaceId} details={details} />
+          )}
         </div>
         <div className="max-h-96 overflow-y-hidden">
           <p
@@ -87,13 +90,6 @@ const Card = ({ spaceId, details, setActiveFieldInfo }) => {
         </div>
         <p className="text-xs text-end">Edited: {last_modified}</p>
       </div>
-      {/* {toggleModel && (
-        <DetailedFieldInfo
-          details={details}
-          toggleModel={toggleModel}
-          setToggleModel={setToggleModel}
-        />
-      )} */}
     </div>
   );
 };
