@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { showErrorToast } from "@/components/notifications/Toast";
+import { errorToast } from "@/components/notifications/Toast";
 import { FieldList, FieldAddForm, DetailedFieldInfo } from "@/features/field";
 import { getSpaceDetail, updateSpaceCode } from "@/features/space";
 
@@ -19,7 +19,7 @@ const Space = () => {
 
   useEffect(() => {
     if (fieldData.status === "error") {
-      showErrorToast(fieldData.message);
+      errorToast(fieldData.message);
     }
   }, [fieldData]);
 

@@ -3,10 +3,7 @@ import { FaPlus } from "react-icons/fa6";
 import { FaArrowUp } from "react-icons/fa";
 import { CgSpinner } from "react-icons/cg";
 import { useNavigate, Link } from "react-router";
-import {
-  showSuccessToast,
-  showErrorToast,
-} from "@/components/notifications/Toast";
+import { successToast, errorToast } from "@/components/notifications/Toast";
 import { useCreateSpace, useFindSpace } from "@/features/space";
 import useScreenWidth from "@/hooks/useScreenWidth";
 import { Toolip } from "@/components/ui/Toolip";
@@ -21,10 +18,10 @@ const Home = () => {
 
   useEffect(() => {
     if (createspace.data && createspace.status === "success") {
-      showSuccessToast(createspace.message);
+      successToast(createspace.message);
       navigate(`/space/${createspace.data.space_code}`);
     } else if (createspace.status === "error") {
-      showErrorToast(createspace.message);
+      errorToast(createspace.message);
     }
   }, [createspace.data]);
 
@@ -36,9 +33,9 @@ const Home = () => {
 
   useEffect(() => {
     if (data && status === "success") {
-      showSuccessToast(message);
+      successToast(message);
     } else if (status === "error") {
-      showErrorToast(message);
+      errorToast(message);
     }
   }, [data, status]);
 

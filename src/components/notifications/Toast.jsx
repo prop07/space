@@ -1,4 +1,3 @@
-import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 
@@ -20,15 +19,15 @@ const Toast = () => {
 export default Toast;
 
 // Utility functions for triggering toasts
-export const showSuccessToast = (message) => {
+export const successToast = (message) => {
   toast.success(message);
 };
 
-export const showErrorToast = (message) => {
+export const errorToast = (message) => {
   toast.error(message);
 };
 
-export const showInfoToast = (message) => {
+export const infoToast = (message) => {
   toast(message);
 };
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import CustomEditor from "@/components/CustomEditor";
 import { useDispatch } from "react-redux";
 import { resetField, handleUpdateField } from "@/features/field";
-import { showErrorToast } from "@/components/notifications/Toast";
+import { errorToast } from "@/components/notifications/Toast";
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import Modal from "../../../components/models/Modal";
 import Button from "../../../components/ui/button/Button";
@@ -42,7 +42,7 @@ export const DetailedFieldInfo = ({
 
   useEffect(() => {
     if (!formData.title && activeFieldInfo) {
-      showErrorToast("Heading is required !");
+      errorToast("Heading is required !");
     } else if (title != formData.title || content != formData.content) {
       console.log(activeFieldInfo);
       console.log(formData);

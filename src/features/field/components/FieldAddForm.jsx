@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addField, resetField, handleUpdateField } from "@/features/field";
-import { loadingToast } from "@/components/notifications/Toast";
+import { loadingToast, errorToast } from "@/components/notifications/Toast";
 import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
-
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import CustomEditor from "@/components/CustomEditor";
 
@@ -40,6 +39,9 @@ export const FieldAddForm = ({ spaceId }) => {
   }, [cloudStatus]);
 
   useEffect(() => {
+    if (!formData.title && fieldDetails.data) {
+      errorToast("Heading is required !");
+    }
     handleForm();
   }, [formData]);
 
