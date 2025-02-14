@@ -1,14 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import CustomEditor from "@/components/CustomEditor";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addField,
-  resetField,
-  updateField,
-  deleteField,
-  handleUpdateField,
-} from "@/features/field";
-
+import { useDispatch } from "react-redux";
+import { resetField, handleUpdateField } from "@/features/field";
+import { showErrorToast } from "@/components/notifications/Toast";
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import Modal from "../../../components/models/Modal";
 import Button from "../../../components/ui/button/Button";
@@ -40,36 +34,20 @@ export const DetailedFieldInfo = ({
     });
   }, [activeFieldInfo]);
 
-  // const handleUpdate = (data) => {
-  //   if (title && content) {
-  //     setCloudStatus("pending");
-  //     const fieldDate = { ...data, field_code: field_code };
-  //     if (data.title && data.content) {
-  //       handleUpdateField(fieldDate, dispatch, spaceId);
-  //     }
-  //     // debounceTimeout.current = setTimeout(() => {
-  //     //   console.log("running update");
-  //     //   const fieldData = {
-  //     //     ...data,
-  //     //     field_code: field_code,
-  //     //   };
-  //     //   dispatch(
-  //     //     updateField({
-  //     //       id: spaceId,
-  //     //       fieldData: fieldData,
-  //     //     })
-  //     //   );
-  //     //   debounceTimeout.current = null;
-  //     // }, KEY_DEBOUNCE_DELAY);
-  //   }
-  // };
-
   const handleUpdate = () => {
-    console.log(formData);
+    setCloudStatus("pending");
+    const fieldDate = { ...formData, field_code: field_code };
+    handleUpdateField(fieldDate, dispatch, spaceId);
   };
 
   useEffect(() => {
-    handleUpdate();
+    if (!formData.title && activeFieldInfo) {
+      showErrorToast("Heading is required !");
+    } else if (title != formData.title || content != formData.content) {
+      console.log(activeFieldInfo);
+      console.log(formData);
+      handleUpdate();
+    }
   }, [formData]);
 
   const handleClose = () => {

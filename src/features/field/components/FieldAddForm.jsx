@@ -18,6 +18,8 @@ export const FieldAddForm = ({ spaceId }) => {
   const debounceTimeout = useRef(null);
   const formRef = useRef(null);
 
+  // console.log("field details", JSON.stringify(fieldDetails, null, 2));
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (formRef.current && !formRef.current.contains(event.target)) {
@@ -31,6 +33,34 @@ export const FieldAddForm = ({ spaceId }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!toggleForm && fieldDetails.data) {
+      dispatch(resetField());
+    }
+  }, [cloudStatus]);
+
+  useEffect(() => {
+    handleForm();
+  }, [formData]);
+
+  const openForm = () => {
+    if (cloudStatus === "pending") {
+      loadingToast();
+      return null;
+    }
+
+    dispatch(resetField());
+    setTimeout(() => {
+      setToggleForm(true);
+    }, 100);
+  };
+
+  const closeForm = () => {
+    dispatch(resetField());
+    setToggleForm(false);
+    setFormData((prev) => ({ ...prev, title: "", content: "" }));
+  };
+
   const handleForm = () => {
     if (fieldDetails?.data?.field?.field_code) {
       console.log("handleUpdate");
@@ -39,13 +69,13 @@ export const FieldAddForm = ({ spaceId }) => {
         ...formData,
         field_code: fieldDetails.data.field.field_code,
       };
-      handleUpdateField(fieldData, dispatch, spaceId, "fieldAddForm");
+      handleUpdateField(fieldData, dispatch, spaceId);
     } else if (
       formData.title &&
       formData.content &&
       formData.content != "<p><br></p>"
     ) {
-      console.log("add");
+      console.log("handleadd");
       if (debounceTimeout.current) {
         clearTimeout(debounceTimeout.current);
       }
@@ -56,31 +86,6 @@ export const FieldAddForm = ({ spaceId }) => {
         debounceTimeout.current = null;
       }, KEY_DEBOUNCE_DELAY);
     }
-  };
-
-  useEffect(() => {
-    handleForm();
-  }, [formData]);
-
-  useEffect(() => {
-    if (!toggleForm && fieldDetails.data) {
-      dispatch(resetField());
-    }
-  }, [cloudStatus]);
-
-  const openForm = () => {
-    if (cloudStatus === "pending") {
-      loadingToast();
-      return null;
-    }
-    dispatch(resetField());
-    setToggleForm(true);
-  };
-
-  const closeForm = () => {
-    dispatch(resetField());
-    setToggleForm(false);
-    setFormData((prev) => ({ ...prev, title: "", content: "" }));
   };
 
   return (
