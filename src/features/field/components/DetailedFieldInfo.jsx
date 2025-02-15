@@ -44,8 +44,6 @@ export const DetailedFieldInfo = ({
     if (!formData.title && activeFieldInfo) {
       errorToast("Heading is required !");
     } else if (title != formData.title || content != formData.content) {
-      console.log(activeFieldInfo);
-      console.log(formData);
       handleUpdate();
     }
   }, [formData]);

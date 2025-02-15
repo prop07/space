@@ -18,8 +18,6 @@ const View = () => {
     fetchData();
   }, []);
 
-  console.log(toggleDetailModal);
-
   useEffect(() => {
     if (activeFieldInfo) {
       setToggleDetailModal(true);
