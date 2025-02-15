@@ -9,6 +9,7 @@ const View = () => {
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
   const id = searchParams.get("id");
+  const [toggleDetailModal, setToggleDetailModal] = useState(false);
   const [activeFieldInfo, setActiveFieldInfo] = useState();
 
   const { data, status, message, fetchData } = useHttp("/space/" + id);
@@ -16,6 +17,21 @@ const View = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log(toggleDetailModal);
+
+  useEffect(() => {
+    if (activeFieldInfo) {
+      setToggleDetailModal(true);
+    }
+  }, [activeFieldInfo]);
+
+  const closeDetailModal = () => {
+    setToggleDetailModal(false);
+    setTimeout(() => {
+      setActiveFieldInfo(null);
+    }, 100);
+  };
 
   if (status === "error") {
     return (
@@ -43,8 +59,9 @@ const View = () => {
               setActiveFieldInfo={setActiveFieldInfo}
             />
             <DetailFieldInfo
+              toggleDetailModal={toggleDetailModal}
               activeFieldInfo={activeFieldInfo}
-              onClose={() => setActiveFieldInfo(null)}
+              onClose={closeDetailModal}
             />
           </div>
         </div>
@@ -68,9 +85,9 @@ const View = () => {
 
 export default View;
 
-const DetailFieldInfo = ({ activeFieldInfo, onClose }) => {
+const DetailFieldInfo = ({ activeFieldInfo, onClose, toggleDetailModal }) => {
   return (
-    <Modal isOpen={!!activeFieldInfo} onClose={() => onClose()}>
+    <Modal isOpen={toggleDetailModal} onClose={() => onClose()}>
       <div className=" min-w-[250px]">
         <div className=" space-y-4">
           <p className=" text-lg font-semibold w-full">

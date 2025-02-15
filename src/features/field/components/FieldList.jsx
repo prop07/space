@@ -71,25 +71,20 @@ const Card = ({ spaceId, details, setActiveFieldInfo, path }) => {
   const { title, content, last_modified } = details;
 
   return (
-    <div>
-      <div
-        onClick={() => setActiveFieldInfo(details)}
-        className="p-4 space-y-2 rounded-md border border-outlineWhite cursor-default"
-      >
-        <div className="flex justify-between items-start">
-          <h1 className="font-semibold break-words">{title}</h1>
-          {path === "/space" && (
-            <FieldActions spaceId={spaceId} details={details} />
-          )}
-        </div>
-        <div className="max-h-96 overflow-y-hidden">
-          <p
-            className=" text-sm"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
-        </div>
-        <p className="text-xs text-end">Edited: {last_modified}</p>
+    <div
+      onClick={() => setActiveFieldInfo(details)}
+      className="p-4 space-y-2 rounded-md border border-outlineWhite cursor-pointer"
+    >
+      <div className="flex justify-between items-start">
+        <h1 className="font-semibold break-words">{title}</h1>
+        {path === "/space" && (
+          <FieldActions spaceId={spaceId} details={details} />
+        )}
       </div>
+      <div className="max-h-96 overflow-y-hidden">
+        <p className=" text-sm" dangerouslySetInnerHTML={{ __html: content }} />
+      </div>
+      <p className="text-xs text-end">Edited: {last_modified}</p>
     </div>
   );
 };
