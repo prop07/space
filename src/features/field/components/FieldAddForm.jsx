@@ -107,7 +107,7 @@ export const FieldAddForm = ({ spaceId }) => {
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
-            className="bg-transparent mb-2 text-base w-full focus:outline-none"
+            className="bg-transparent mb-2 text-base w-full focus:outline-hidden"
             type="text"
             value={formData.title}
             placeholder="Heading"

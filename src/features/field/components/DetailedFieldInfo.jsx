@@ -64,7 +64,7 @@ export const DetailedFieldInfo = ({
           onChange={(e) => {
             setFormData((prev) => ({ ...prev, title: e.target.value }));
           }}
-          className="bg-transparent break-words text-lg font-semibold w-full focus:outline-none"
+          className="bg-transparent break-words text-lg font-semibold w-full focus:outline-hidden"
           type="text"
           value={formData.title || ""}
           placeholder="Heading"

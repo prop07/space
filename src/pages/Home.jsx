@@ -62,7 +62,7 @@ const Home = () => {
             <input
               onChange={(e) => setSearchQuery(e.target.value.trim())}
               onKeyDown={handleKeyDown}
-              className=" bg-transparent pb-2 pt-3 px-3 w-full  focus:outline-none"
+              className=" bg-transparent pb-2 pt-3 px-3 w-full  focus:outline-hidden"
               type="text"
               placeholder="Enter space code !"
               id="inputField"
