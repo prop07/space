@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 const Footer = () => {
   return (
     <div className="py-2 flex justify-center">
-      <FaGithub className="text-white" size={25} />
+      <FaGithub className="text-button" size={25} />
     </div>
   );
 };

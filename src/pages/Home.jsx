@@ -55,21 +55,21 @@ const Home = () => {
     <div className="flex-1 flex overflow-hidden">
       <div className="grid place-items-center w-screen">
         <div className="space-y-2">
-          <h1 className=" text-center font-bold pb-8 px-2 text-4xl tracking-normal">
+          <h1 className=" text-center font-bold pb-8 px-2 text-4xl tracking-normal  placeholder:text-primary ">
             Help You Find Space?
           </h1>
-          <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-secondary">
+          <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-surface border border-border">
             <input
               onChange={(e) => setSearchQuery(e.target.value.trim())}
               onKeyDown={handleKeyDown}
-              className=" bg-transparent pb-2 pt-3 px-3 w-full  focus:outline-hidden"
+              className=" bg-transparent font-semibold pb-2 pt-3 px-3 w-full  focus:outline-hidden"
               type="text"
               placeholder="Enter space code !"
               id="inputField"
               autoFocus
             />
             <label htmlFor="inputField">
-              <div className=" cursor-text flex justify-between   px-3 py-3">
+              <div className=" cursor-text flex justify-between px-3 py-3">
                 <button
                   onClick={generateSpace}
                   className=" text-sm flex items-center gap-2  font-semibold text-white cursor-pointer hover:bg-neutral-600 border py-1 px-2 rounded-md border-neutral-400 hover:border-neutral-600 active:bg-neutral-700 active:border-neutral-700"
