@@ -40,14 +40,15 @@ ul li {
   line-height: 1.4;
 }
 
+
+
 .ql-editor.ql-blank::before {
-  color: rgba(255, 255, 255, 0.6) !important;
+  color:#868686 !important;
   font-style: normal !important;
   left: -0px !important;
 }
 
 .ql-editor {
-  color: white;
   padding: 0 !important;
 }
 

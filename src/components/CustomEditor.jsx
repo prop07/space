@@ -55,7 +55,7 @@ const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
             value={value}
             onChange={handleChange}
             placeholder="Body......"
-            theme="snow"
+            // theme="snow"
             className="editor"
             style={{ height: "100%", overflowY: "auto" }}
             modules={{
@@ -64,51 +64,51 @@ const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
           />
         </div>
         <div className="flex items-center justify-between  mt-2 ">
-          <div className=" space-x-2">
-            <button
+          <div className="flex space-x-2">
+            <Button
               onClick={() => toggleTool("bold")}
-              className={`p-2 rounded ${
-                isToolActive("bold")
-                  ? " text-white hover:bg-neutral-700"
-                  : "text-neutral-500 hover:bg-neutral-700"
-              }`}
-              title="Bold"
-            >
-              <FiBold className="w-4 h-4" />
-            </button>
-            <button
+              icon={
+                <FiBold
+                  size={15}
+                  className={`${
+                    isToolActive("bold") ? "text-text " : "text-neutral-500"
+                  } `}
+                />
+              }
+            />
+            <Button
               onClick={() => toggleTool("italic")}
-              className={`p-2 rounded ${
-                isToolActive("italic")
-                  ? " text-white hover:bg-neutral-700"
-                  : "text-neutral-500 hover:bg-neutral-700"
-              }`}
-              title="Italic"
-            >
-              <FiItalic className="w-4 h-4" />
-            </button>
-            <button
+              icon={
+                <FiItalic
+                  size={15}
+                  className={`${
+                    isToolActive("italic") ? "text-text" : "text-neutral-500"
+                  } `}
+                />
+              }
+            />
+            <Button
               onClick={() => toggleTool("underline")}
-              className={`p-2 rounded ${
-                isToolActive("underline")
-                  ? " text-white hover:bg-neutral-700"
-                  : "text-neutral-500 hover:bg-neutral-700"
-              }`}
-              title="Underline"
-            >
-              <FiUnderline className="w-4 h-4" />
-            </button>
-            <button
+              icon={
+                <FiUnderline
+                  size={15}
+                  className={`${
+                    isToolActive("underline") ? "text-text" : "text-neutral-500"
+                  } `}
+                />
+              }
+            />
+            <Button
               onClick={() => toggleTool("list")}
-              className={`p-2 rounded ${
-                isToolActive("list")
-                  ? " text-white hover:bg-neutral-700"
-                  : "text-neutral-500 hover:bg-neutral-700"
-              }`}
-              title="Bullet List"
-            >
-              <FaList className="w-4 h-4" />
-            </button>
+              icon={
+                <FaList
+                  size={15}
+                  className={`${
+                    isToolActive("list") ? "text-text" : "text-neutral-500"
+                  } `}
+                />
+              }
+            />
           </div>
           <div>
             {closeForm && <Button onClick={closeForm} placeHolder={"Close"} />}

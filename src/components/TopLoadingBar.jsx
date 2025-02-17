@@ -57,7 +57,7 @@ const TopLoadingBar = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 h-[3px] bg-white z-50"
+      className="fixed top-0 left-0 h-[3px] bg-text z-50"
       style={{
         width: `${progress}%`,
         opacity: display ? 1 : 0,
