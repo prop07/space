@@ -80,17 +80,17 @@ const Home = () => {
 
                 <span className="h-10 w-10 flex justify-center items-center">
                   {searchQuery && status === "pending" ? (
-                    <CgSpinner className="animate-spin text-white" size={21} />
+                    <CgSpinner className="animate-spin" size={21} />
                   ) : searchQuery && status === "success" ? (
                     <Link to={`space?id=${data.space_code}`}>
-                      <button className="text-sm font-semibold  py-2 px-2 rounded-md bg-btn-active  text-black cursor-pointer">
+                      <button className="text-sm font-semibold  py-2 px-2 rounded-md  bg-neutral-800 text-white dark:bg-neutral-100 dark:text-black cursor-pointer">
                         <FaArrowUp className="rotate-90" />
                       </button>
                     </Link>
                   ) : (
                     <Toolip title={"Enter valid code"}>
-                      <button className="text-sm font-semibold  py-2 px-2 rounded-md bg-btn-muted  text-text cursor-default">
-                        <FaArrowUp className="rotate-90" />
+                      <button className="text-sm font-semibold  py-2 px-2 rounded-md bg-neutral-200 dark:bg-neutral-600 text-text cursor-default">
+                        <FaArrowUp className="rotate-90 text-neutral-400" />
                       </button>
                     </Toolip>
                   )}
