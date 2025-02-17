@@ -73,7 +73,7 @@ const Card = ({ spaceId, details, setActiveFieldInfo, path }) => {
   return (
     <div
       onClick={() => setActiveFieldInfo(details)}
-      className="p-4 space-y-2 rounded-md border border-outlineWhite cursor-pointer"
+      className="p-4 space-y-2 rounded-md border border-default bg-primary cursor-pointer"
     >
       <div className="flex justify-between items-start">
         <h1 className="font-semibold break-words">{title}</h1>

@@ -91,17 +91,20 @@ export const FieldAddForm = ({ spaceId }) => {
   };
 
   return (
-    <div ref={formRef} className=" mb-8 px-2">
+    <div
+      ref={formRef}
+      className=" mb-8 px-2 bg-primary border border-default rounded-md"
+    >
       <button
         onClick={openForm}
         className={`${
           toggleForm ? "hidden" : "block"
-        } border border-outlineWhite font-semibold p-2 rounded-md w-full text-start cursor-text  `}
+        }  font-semibold p-2 rounded-md w-full text-start cursor-text  `}
       >
         List anything...
       </button>
       {toggleForm && (
-        <div className=" border border-outlineWhite rounded-md p-2 space-y-1">
+        <div className="  rounded-md p-2 space-y-1">
           <input
             ref={inputRef}
             onChange={(e) =>

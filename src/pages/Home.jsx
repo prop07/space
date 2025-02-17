@@ -7,6 +7,7 @@ import { successToast, errorToast } from "@/components/notifications/Toast";
 import { useCreateSpace, useFindSpace } from "@/features/space";
 import useScreenWidth from "@/hooks/useScreenWidth";
 import { Toolip } from "@/components/ui/Toolip";
+import Button from "../components/ui/button/Button";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Home = () => {
           <h1 className=" text-center font-bold pb-8 px-2 text-4xl tracking-normal  placeholder:text-primary ">
             Help You Find Space?
           </h1>
-          <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-surface border border-border">
+          <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-primary border border-default">
             <input
               onChange={(e) => setSearchQuery(e.target.value.trim())}
               onKeyDown={handleKeyDown}
@@ -70,24 +71,25 @@ const Home = () => {
             />
             <label htmlFor="inputField">
               <div className=" cursor-text flex justify-between px-3 py-3">
-                <button
+                <Button
+                  placeHolder={"Create Space"}
+                  icon={<FaPlus className="text-text" size={13} />}
                   onClick={generateSpace}
-                  className=" text-sm flex items-center gap-2  font-semibold text-white cursor-pointer hover:bg-neutral-600 border py-1 px-2 rounded-md border-neutral-400 hover:border-neutral-600 active:bg-neutral-700 active:border-neutral-700"
-                >
-                  Create Space <FaPlus className="text-white" size={13} />
-                </button>
+                  className={"border border-default"}
+                />
+
                 <span className="h-10 w-10 flex justify-center items-center">
                   {searchQuery && status === "pending" ? (
                     <CgSpinner className="animate-spin text-white" size={21} />
                   ) : searchQuery && status === "success" ? (
                     <Link to={`space?id=${data.space_code}`}>
-                      <button className="text-sm font-semibold border py-2 px-2 rounded-md bg-neutral-100 border-neutral-100 text-black cursor-pointer">
+                      <button className="text-sm font-semibold  py-2 px-2 rounded-md bg-btn-active  text-black cursor-pointer">
                         <FaArrowUp className="rotate-90" />
                       </button>
                     </Link>
                   ) : (
                     <Toolip title={"Enter valid code"}>
-                      <button className="text-sm font-semibold border py-2 px-2 rounded-md bg-neutral-700 border-neutral-700 text-secondary cursor-default">
+                      <button className="text-sm font-semibold  py-2 px-2 rounded-md bg-btn-muted  text-text cursor-default">
                         <FaArrowUp className="rotate-90" />
                       </button>
                     </Toolip>
@@ -97,11 +99,9 @@ const Home = () => {
             </label>
           </div>
           <div className="flex justify-center">
-            <button
-              onClick={() => showSuccessToast("Hello")}
-              className="rounded-full text-sm border py-1 px-2 flex items-center gap-1 border-outlineWhite hover:bg-neutral-700 "
-            >
-              Quick Guide <FaArrowUp size={10} className="rotate-45" />
+            <button className="rounded-full text-sm border py-1 px-2 flex items-center gap-1 border-default hover:bg-neutral-700 ">
+              Quick Guide{" "}
+              <FaArrowUp size={10} className="rotate-45 text-text" />
             </button>
           </div>
         </div>

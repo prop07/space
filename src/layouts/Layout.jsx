@@ -5,7 +5,7 @@ import TopLoadingBar from "../components/TopLoadingBar";
 
 const Layout = () => {
   return (
-    <div className=" bg-background text-text min-h-[100vh] flex flex-col overflow-hidden">
+    <div className=" bg-secondary text-text min-h-[100vh] flex flex-col overflow-hidden">
       <TopLoadingBar />
       <NavBar />
       <Outlet />

@@ -1,7 +1,7 @@
-const Button = ({ onClick, icon, placeHolder }) => {
+const Button = ({ onClick, icon, placeHolder, className }) => {
   return (
     <button
-      className="cursor-pointer p-2 rounded-md hover:bg-button-hover"
+      className={`${className} flex items-center gap-1 cursor-pointer p-2 rounded-md hover:bg-btn-hover`}
       onClick={onClick}
     >
       <span className=" font-semibold tracking-wider">{placeHolder}</span>

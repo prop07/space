@@ -30,7 +30,7 @@ const Modal = ({ isOpen, onClose, children }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.3 }}
-            className=" max-h-[80vh] overflow-y-scroll  max-w-[300px] sm:min-w-[600px] rounded-lg border border-outlineWhite p-6 bg-primary"
+            className=" max-h-[80vh] overflow-y-scroll  max-w-[300px] sm:min-w-[600px] rounded-lg border border-primary p-6 bg-primary"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
             {children}
