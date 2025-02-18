@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { IoMoonOutline } from "react-icons/io5";
-import Button from "./ui/button/Button";
+import Button from "./components/ui/button/Button";
 
 const Theme = () => {
   const [theme, setTheme] = useState(

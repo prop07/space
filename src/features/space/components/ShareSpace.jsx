@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoShareOutline, IoClose } from "react-icons/io5";
 import { GoAlertFill } from "react-icons/go";
 import Modal from "../../../components/models/Modal";
-import Button from "../../../components/ui/button/Button";
+import Button, { ToggleButton } from "../../../components/ui/button/Button";
 import Clipboard from "../../../components/ui/Clipboard";
 
 const ShareSpace = () => {
@@ -34,34 +34,24 @@ const ShareSpace = () => {
           <p className=" text-sm">Choose a link type to share your space</p>
           <div className=" space-y-4">
             <div className="flex mt-8 gap-2">
-              <button
+              <ToggleButton
                 onClick={() => {
                   setActiveLink("viewer");
                 }}
-                className={`${
-                  activeLink === "viewer"
-                    ? "bg-white text-black"
-                    : " border border-outlineWhite hover:bg-neutral-800"
-                } cursor-pointer py-2 px-2  rounded-md font-semibold `}
-              >
-                Viewer Link
-              </button>
-              <button
+                active={activeLink === "viewer" ? true : false}
+                placeHolder={"Viewer Link"}
+              />
+              <ToggleButton
                 onClick={() => {
                   setActiveLink("admin");
                 }}
-                className={`${
-                  activeLink === "admin"
-                    ? "bg-white text-black"
-                    : " border border-outlineWhite hover:bg-neutral-800"
-                } cursor-pointer py-2 px-2  rounded-md font-semibold `}
-              >
-                Admin Link
-              </button>
+                active={activeLink === "admin" ? true : false}
+                placeHolder={"Admin Link"}
+              />
             </div>
             <div className=" space-y-2">
               <p className=" text-sm font-semibold">Selected Link</p>
-              <div className=" flex justify-between items-center gap-2 border border-outlineWhite rounded-md p-2">
+              <div className=" flex justify-between items-center gap-2 border border-default-border rounded-md p-2">
                 <p className="max-w-[280px] sm:min-w-[500px] truncate">
                   {activeLink === "viewer" ? (
                     <span>{links.viewer}</span>
@@ -74,17 +64,19 @@ const ShareSpace = () => {
                 />
               </div>
             </div>
-            {activeLink === "viewer" ? (
-              <div className="text-sm text-yellow-500 flex items-center gap-1">
-                <GoAlertFill size={18} /> Viewer link allows read-only access to
-                the space.
-              </div>
-            ) : (
-              <div className="text-sm text-red-500 flex items-center gap-2">
-                <GoAlertFill size={18} />
-                Admin link provides full access to manage the space.
-              </div>
-            )}
+            <div className=" p-2 bg-neutral-100 dark:bg-neutral-700  rounded-md">
+              {activeLink === "viewer" ? (
+                <div className="text-sm text-yellow-500 flex items-center gap-1">
+                  <GoAlertFill size={18} /> Viewer link allows read-only access
+                  to the space.
+                </div>
+              ) : (
+                <div className="text-sm text-red-500 flex items-center gap-2">
+                  <GoAlertFill size={18} />
+                  Admin link provides full access to manage the space.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </Modal>

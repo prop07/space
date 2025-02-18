@@ -5,7 +5,6 @@ import { CgSpinner } from "react-icons/cg";
 import { useNavigate, Link } from "react-router";
 import { successToast, errorToast } from "@/components/notifications/Toast";
 import { useCreateSpace, useFindSpace } from "@/features/space";
-import useScreenWidth from "@/hooks/useScreenWidth";
 import { Toolip } from "@/components/ui/Toolip";
 import Button from "../components/ui/button/Button";
 
@@ -15,7 +14,6 @@ const Home = () => {
 
   const createspace = useCreateSpace();
   const { data, status, message, findSpace } = useFindSpace(searchQuery);
-  const width = useScreenWidth();
 
   useEffect(() => {
     if (createspace.data && createspace.status === "success") {
@@ -59,7 +57,7 @@ const Home = () => {
           <h1 className=" text-center font-bold pb-8 px-2 text-4xl tracking-normal  placeholder:text-primary ">
             Help You Find Space?
           </h1>
-          <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-primary border border-default">
+          <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-primary border border-default-border">
             <input
               onChange={(e) => setSearchQuery(e.target.value.trim())}
               onKeyDown={handleKeyDown}
@@ -75,9 +73,8 @@ const Home = () => {
                   placeHolder={"Create Space"}
                   icon={<FaPlus className="text-text" size={13} />}
                   onClick={generateSpace}
-                  className={"border border-default"}
+                  className={"border border-default-border"}
                 />
-
                 <span className="h-10 w-10 flex justify-center items-center">
                   {searchQuery && status === "pending" ? (
                     <CgSpinner className="animate-spin" size={21} />
@@ -89,7 +86,7 @@ const Home = () => {
                     </Link>
                   ) : (
                     <Toolip title={"Enter valid code"}>
-                      <button className="text-sm font-semibold  py-2 px-2 rounded-md bg-neutral-200 dark:bg-neutral-600 text-text cursor-default">
+                      <button className="text-sm font-semibold  py-2 px-2 rounded-md bg-neutral-200 dark:bg-neutral-600 text-text cursor-default-border">
                         <FaArrowUp className="rotate-90 text-neutral-400" />
                       </button>
                     </Toolip>
@@ -99,7 +96,7 @@ const Home = () => {
             </label>
           </div>
           <div className="flex justify-center">
-            <button className="rounded-full text-sm border py-1 px-2 flex items-center gap-1 border-default hover:bg-neutral-700 ">
+            <button className="rounded-full text-sm border py-1 px-2 flex items-center gap-1 border-default-border hover:bg-neutral-700 ">
               Quick Guide{" "}
               <FaArrowUp size={10} className="rotate-45 text-text" />
             </button>

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 import { SpaceNavMenu } from "../features/space";
-import Theme from "./Theme";
+import Theme from "@/Theme";
 
 const NavBar = () => {
   const path = useLocation();

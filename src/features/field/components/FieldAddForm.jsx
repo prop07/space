@@ -93,7 +93,7 @@ export const FieldAddForm = ({ spaceId }) => {
   return (
     <div
       ref={formRef}
-      className=" mb-8 px-2 bg-primary border border-default rounded-md"
+      className=" mb-8 px-2 bg-primary border border-default-border rounded-md"
     >
       <button
         onClick={openForm}

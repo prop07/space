@@ -46,16 +46,16 @@ const FieldActions = ({ spaceId, details }) => {
         icon={<BsThreeDotsVertical size={20} />}
       />
       {toggleAction && (
-        <div className="absolute top-[70%] -left-20 mt-2 rounded-md inline-block py-1 text-sm tracking-wider bg-black shadow-md border border-outlineWhite">
-          <p className="pl-4 whitespace-nowrap pr-2 py-1 cursor-pointer hover:bg-gray-600 ease-in-out duration-200">
+        <div className="absolute top-[70%] -left-20 mt-2 rounded-md inline-block py-1 text-sm tracking-wider bg-primary shadow-md shadow-default border border-default-border">
+          <p className="pl-4 whitespace-nowrap pr-2 py-1 cursor-pointer hover:bg-default-hover ease-in-out duration-200">
             Upload file
           </p>
-          <p className="pl-4 pr-2 py-1 cursor-pointer hover:bg-gray-600 ease-in-out duration-200">
+          <p className="pl-4 pr-2 py-1 cursor-pointer hover:bg-default-hover ease-in-out duration-200">
             Duplicate
           </p>
           <p
             onClick={() => handleDelete()}
-            className="pl-4 pr-2 py-1 cursor-pointer hover:bg-gray-600 ease-in-out duration-200"
+            className="pl-4 pr-2 py-1 cursor-pointer hover:bg-default-hover ease-in-out duration-200"
           >
             Delete
           </p>
