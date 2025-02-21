@@ -4,8 +4,9 @@ import { fetchSpaceDetail } from "./api";
 const initialState = {
   data: null,
   status: "idle",
-  message: null,
   space_code: null,
+  view_code: null,
+  message: null,
   last_fetch: null,
 };
 
@@ -30,6 +31,9 @@ const spaceSlice = createSlice({
       state.data = null;
       state.status = "idle";
       state.message = null;
+      state.space_code = null;
+      state.view_code = null;
+      state.last_fetch = null;
     },
     updateSpaceCode: (state, action) => {
       state.space_code = action.payload;
@@ -43,6 +47,8 @@ const spaceSlice = createSlice({
       })
       .addCase(getSpaceDetail.fulfilled, (state, action) => {
         state.status = "success";
+        state.space_code = action.payload.code;
+        state.view_code = action.payload.view_code;
         state.data = action.payload.data.fields;
         state.message =
           action.payload.message || "Data retrieved successfully.";

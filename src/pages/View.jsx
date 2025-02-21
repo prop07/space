@@ -12,11 +12,16 @@ const View = () => {
   const [toggleDetailModal, setToggleDetailModal] = useState(false);
   const [activeFieldInfo, setActiveFieldInfo] = useState();
 
-  const { data, status, message, fetchData } = useHttp("/space/" + id);
+  const { data, status, message, fetchData } = useHttp("/view", "POST");
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (type && id) {
+      fetchData({
+        type: type,
+        view_code: id,
+      });
+    }
+  }, [type, id]);
 
   useEffect(() => {
     if (activeFieldInfo) {

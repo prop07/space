@@ -1,9 +1,7 @@
-const Button = ({ onClick, icon, placeHolder, active, className }) => {
+const Button = ({ onClick, icon, placeHolder, className }) => {
   return (
     <button
-      className={`${className} ${
-        active && "bg-black text-white dark:bg-white dark:text-black"
-      } flex items-center gap-1 cursor-pointer p-2 rounded-md hover:bg-default-hover`}
+      className={`${className}  flex items-center gap-1 cursor-pointer p-2 rounded-md hover:bg-default-hover`}
       onClick={onClick}
     >
       {placeHolder && (

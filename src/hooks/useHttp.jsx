@@ -7,7 +7,7 @@ const useHttp = (path, method = "GET", body = null) => {
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState(null);
 
-  const fetchData = async () => {
+  const fetchData = async (customBody = null) => {
     try {
       setStatus("pending");
       const options = {
@@ -16,18 +16,14 @@ const useHttp = (path, method = "GET", body = null) => {
           "Content-Type": "application/json",
         },
       };
-
-      if (method === "POST" && body) {
-        options.body = JSON.stringify(body);
+      if ((method === "POST" || method === "PUT") && (customBody || body)) {
+        options.body = JSON.stringify(customBody || body);
       }
-
       const response = await fetch(apiUrl + path, options);
       const result = await response.json();
-
       if (!response.ok || result.status === "error") {
         throw new Error(result.message || "Operation failed");
       }
-
       setData(result.data);
       setStatus("success");
       setMessage(result.message);

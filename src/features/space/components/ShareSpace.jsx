@@ -5,7 +5,7 @@ import Modal from "../../../components/models/Modal";
 import Button, { ToggleButton } from "../../../components/ui/button/Button";
 import Clipboard from "../../../components/ui/Clipboard";
 
-const ShareSpace = () => {
+const ShareSpace = ({ spaceDetails }) => {
   const [toggleShare, setToggleShare] = useState(false);
   const [activeLink, setActiveLink] = useState("viewer");
 
@@ -54,13 +54,29 @@ const ShareSpace = () => {
               <div className=" flex justify-between items-center gap-2 border border-default-border rounded-md p-2">
                 <p className="max-w-[280px] sm:min-w-[500px] truncate">
                   {activeLink === "viewer" ? (
-                    <span>{links.viewer}</span>
+                    <span>
+                      {window.location.origin +
+                        "/view?type=space&id=" +
+                        spaceDetails.view_code}
+                    </span>
                   ) : (
-                    <span>{links.admin}</span>
+                    <span>
+                      {window.location.origin +
+                        "/space?id=" +
+                        spaceDetails.space_code}
+                    </span>
                   )}
                 </p>
                 <Clipboard
-                  text={activeLink === "viewer" ? links.viewer : links.admin}
+                  text={
+                    activeLink === "viewer"
+                      ? window.location.origin +
+                        "/view?type=space&id=" +
+                        spaceDetails.view_code
+                      : window.location.origin +
+                        "/space?id=" +
+                        spaceDetails.space_code
+                  }
                 />
               </div>
             </div>

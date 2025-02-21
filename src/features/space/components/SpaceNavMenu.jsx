@@ -27,7 +27,7 @@ export const SpaceNavMenu = () => {
               </span>
             </Clipboard>
           </div>
-          <ShareSpace />
+          <ShareSpace spaceDetails={spaceDetails} />
         </div>
       </div>
     );
