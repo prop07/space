@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { MdOutlineWbSunny } from "react-icons/md";
-import { IoMoonOutline } from "react-icons/io5";
+import { RiMoonClearLine } from "react-icons/ri";
 import Button from "./components/ui/button/Button";
 
 const Theme = () => {
-  const [theme, setTheme] = useState(
-    document.documentElement.getAttribute("data-theme") === "dark"
-      ? "dark"
-      : "light"
-  );
+  const [theme, setTheme] = useState(null);
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -17,10 +13,13 @@ const Theme = () => {
   };
 
   useEffect(() => {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    if (currentTheme) {
-      setTheme(currentTheme);
-    }
+    const defautTheme = window.matchMedia("(prefers-color-scheme: dark)")
+      .matches
+      ? "dark"
+      : "light";
+
+    document.documentElement.setAttribute("data-theme", defautTheme);
+    setTheme(defautTheme);
   }, []);
 
   return (
@@ -28,7 +27,7 @@ const Theme = () => {
       onClick={toggleTheme}
       icon={
         theme === "dark" ? (
-          <IoMoonOutline size={18} />
+          <RiMoonClearLine size={18} />
         ) : (
           <MdOutlineWbSunny size={18} />
         )

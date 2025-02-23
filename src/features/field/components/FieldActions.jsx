@@ -3,6 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { deleteField } from "../index";
 import Button from "../../../components/ui/button/Button";
+import { infoToast } from "../../../components/notifications/Toast";
 
 const FieldActions = ({ spaceId, details }) => {
   const dispatch = useDispatch();
@@ -46,16 +47,19 @@ const FieldActions = ({ spaceId, details }) => {
         icon={<BsThreeDotsVertical size={20} />}
       />
       {toggleAction && (
-        <div className="absolute top-[70%] -left-20 mt-2 rounded-md inline-block py-1 text-sm tracking-wider bg-primary shadow-md shadow-default border border-default-border">
-          <p className="pl-4 whitespace-nowrap pr-2 py-1 cursor-pointer hover:bg-default-hover ease-in-out duration-200">
+        <div className="absolute top-[70%] -left-20 mt-2 rounded-md inline-block p-1 r text-sm tracking-wider bg-primary shadow-md shadow-default border border-default-border">
+          <p
+            onClick={() => infoToast("Adding soon...")}
+            className="pl-4 whitespace-nowrap pr-2 py-1 cursor-pointer rounded-md hover:bg-default-hover ease-in-out duration-200"
+          >
             Upload file
           </p>
-          <p className="pl-4 pr-2 py-1 cursor-pointer hover:bg-default-hover ease-in-out duration-200">
+          <p className="pl-4 pr-2 py-1 cursor-pointer rounded-md hover:bg-default-hover ease-in-out duration-200">
             Duplicate
           </p>
           <p
             onClick={() => handleDelete()}
-            className="pl-4 pr-2 py-1 cursor-pointer hover:bg-default-hover ease-in-out duration-200"
+            className="pl-4 pr-2 py-1 cursor-pointer rounded-md hover:bg-default-hover ease-in-out duration-200"
           >
             Delete
           </p>

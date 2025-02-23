@@ -1,16 +1,20 @@
+import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
+import { IoMdInformationCircle } from "react-icons/io";
 
 const Toast = () => {
+  const style = {
+    background: "#ffffff",
+    color: "#262626",
+  };
+
   return (
     <Toaster
       position="top-center"
       reverseOrder={false}
       toastOptions={{
-        style: {
-          background: "#262626",
-          color: "#fff",
-        },
+        style: style,
       }}
     />
   );
@@ -28,19 +32,45 @@ export const errorToast = (message) => {
 };
 
 export const infoToast = (message) => {
-  toast(message);
+  return toast.custom(
+    (t) => (
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className={`flex items-center gap-2 p-3 rounded-md text-black bg-white shadow-xl ${
+          t.visible ? "animate-enter" : "animate-leave"
+        }`}
+      >
+        <IoMdInformationCircle className="text-blue-500" size={21} />
+        <div>
+          <p className="text-sm font-semibold">{message}</p>
+        </div>
+      </motion.div>
+    ),
+    { duration: 500 }
+  );
 };
 
 export const loadingToast = () => {
   return toast.custom(
-    () => (
-      <div className="flex items-center gap-2 text-white py-2 px-2 border border-outlineWhite rounded-md bg-primary">
-        <CgSpinner className="animate-spin text-white" size={21} />
+    (t) => (
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className={`flex items-center gap-2 p-3 rounded-md text-black bg-white shadow-xl  ${
+          t.visible ? "animate-enter" : "animate-leave"
+        }`}
+      >
+        <CgSpinner className="animate-spin " size={21} />
         <div>
           <p className="text-xs font-semibold">Please Wait</p>
           <p className="text-xs">Previous action is pending</p>
         </div>
-      </div>
+      </motion.div>
     ),
     { duration: 500 }
   );
