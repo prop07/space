@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Field } from "../features/field";
 import Modal from "../components/models/Modal";
 import Button from "../components/ui/button/Button";
+import { TbFolderExclamation } from "react-icons/tb";
 
 const View = () => {
   const [searchParams] = useSearchParams();
@@ -51,6 +52,17 @@ const View = () => {
     );
   }
 
+  if (data?.fields.length === 0) {
+    return (
+      <div className="flex-1 flex justify-center items-center h-full w-full">
+        <div className="text-center grid place-items-center">
+          <TbFolderExclamation className=" h-10 w-10 sm:h-20 sm:w-20" />
+          <p>No fields available.</p>
+        </div>
+      </div>
+    );
+  }
+
   if (data?.fields?.length) {
     return (
       <div className="flex-1 flex overflow-hidden mt-12">
@@ -72,18 +84,7 @@ const View = () => {
     );
   }
 
-  return (
-    <div className="flex-1 flex overflow-hidden mt-12">
-      <div className="grid  w-screen">
-        <div className=" p-2">
-          <h1>
-            Viewing {type} with ID: {id}
-          </h1>
-          {JSON.stringify(data, null, 2)}
-        </div>{" "}
-      </div>
-    </div>
-  );
+  return <div className="flex-1 flex overflow-hidden mt-12"></div>;
 };
 
 export default View;
