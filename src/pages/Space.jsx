@@ -30,8 +30,8 @@ const Space = () => {
         <div className="grid place-items-center w-screen">
           <div className="flex flex-col text-center">
             <p>{spaceDetail.message}</p>
-            <Link to={"/"}>
-              <button className=" underline">home</button>
+            <Link className="underline" to={"/"}>
+              home
             </Link>
           </div>
         </div>

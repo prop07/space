@@ -96,8 +96,8 @@ const Home = () => {
             </label>
           </div>
           <div className="flex justify-center">
-            <button className="rounded-full text-sm border py-1 px-2 flex items-center gap-1 border-default-border hover:bg-neutral-700 ">
-              Quick Guide{" "}
+            <button className="rounded-full text-sm border py-1 px-2 flex items-center gap-1 border-default-border hover:bg-default-hover ">
+              Quick Guide
               <FaArrowUp size={10} className="rotate-45 text-text" />
             </button>
           </div>

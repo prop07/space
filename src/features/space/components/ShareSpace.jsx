@@ -80,14 +80,14 @@ const ShareSpace = ({ spaceDetails }) => {
                 />
               </div>
             </div>
-            <div className=" p-2 bg-neutral-100 dark:bg-neutral-700  rounded-md">
+            <div className=" p-2">
               {activeLink === "viewer" ? (
-                <div className="text-sm text-yellow-500 flex items-center gap-1">
+                <div className="text-sm text-yellow-600 flex items-center gap-1">
                   <GoAlertFill size={18} /> Viewer link allows read-only access
                   to the space.
                 </div>
               ) : (
-                <div className="text-sm text-red-500 flex items-center gap-2">
+                <div className="text-sm text-red-600 flex items-center gap-2">
                   <GoAlertFill size={18} />
                   Admin link provides full access to manage the space.
                 </div>
