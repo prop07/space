@@ -5,6 +5,7 @@ import Space from "./pages/Space";
 import Layout from "./layouts/Layout";
 import Test from "./trash/Test";
 import View from "./pages/View";
+import Quickguide from "./pages/Quickguide";
 
 const routes = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const routes = createBrowserRouter([
         path: "/view",
         element: <View />,
         handle: { title: "view" },
+      },
+      {
+        path: "/quickguide",
+        element: <Quickguide />,
+        handle: { title: "Quick guide" },
       },
       {
         path: "/test",
