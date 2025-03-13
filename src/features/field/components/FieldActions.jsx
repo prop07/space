@@ -54,9 +54,9 @@ const FieldActions = ({ spaceId, details }) => {
           >
             Upload file
           </p>
-          <p className="pl-4 pr-2 py-1 cursor-pointer rounded-md hover:bg-default-hover ease-in-out duration-200">
+          {/* <p className="pl-4 pr-2 py-1 cursor-pointer rounded-md hover:bg-default-hover ease-in-out duration-200">
             Duplicate
-          </p>
+          </p> */}
           <p
             onClick={() => handleDelete()}
             className="pl-4 pr-2 py-1 cursor-pointer rounded-md hover:bg-default-hover ease-in-out duration-200"

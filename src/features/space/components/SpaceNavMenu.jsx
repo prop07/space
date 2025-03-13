@@ -18,7 +18,7 @@ export const SpaceNavMenu = () => {
     return (
       <div>
         <div className=" flex gap-2 items-center">
-          <div className=" flex gap-2 border border-outlineWhite rounded-md p-1">
+          <div className=" flex gap-2 border border-default-border rounded-md py-1 px-2">
             <Clipboard text={spaceDetails.space_code}>
               <span className="text-sm">
                 {spaceDetails.space_code

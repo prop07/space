@@ -9,13 +9,6 @@ const ShareSpace = ({ spaceDetails }) => {
   const [toggleShare, setToggleShare] = useState(false);
   const [activeLink, setActiveLink] = useState("viewer");
 
-  const links = {
-    admin:
-      "http://localhost:5173/space/admin/2bed8d58-3bed-47fa-a374-6685c467ee2e",
-    viewer:
-      "http://localhost:5173/space/viewer/2bed8d58-3bed-47fa-a374-6685c467ee2e",
-  };
-
   return (
     <div>
       <Button

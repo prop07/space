@@ -54,9 +54,14 @@ const Home = () => {
     <div className="flex-1 flex overflow-hidden">
       <div className="grid place-items-center w-screen">
         <div className="space-y-2">
-          <h1 className=" text-center font-bold pb-8 px-2 text-4xl tracking-normal  placeholder:text-primary ">
-            Help You Find Space?
-          </h1>
+          <div>
+            <h1 className=" text-center font-bold pb-4 px-2 text-4xl tracking-normal  placeholder:text-primary ">
+              Space Made Simple – Just a Link!
+            </h1>
+            <h1 className=" text-center  px-2 text-lg tracking-normal  placeholder:text-primary ">
+              Help You Find Space?
+            </h1>
+          </div>
           <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-primary border border-default-border">
             <input
               onChange={(e) => setSearchQuery(e.target.value.trim())}
