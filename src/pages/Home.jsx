@@ -55,12 +55,12 @@ const Home = () => {
       <div className="grid place-items-center w-screen">
         <div className="space-y-2">
           <div>
-            <h1 className=" text-center font-bold pb-4 px-2 text-4xl tracking-normal  placeholder:text-primary ">
+            <p className=" text-center font-bold pb-4 px-2 text-2xl sm:text-4xl tracking-normal  placeholder:text-primary ">
               Space Made Simple – Just a Link!
-            </h1>
-            <h1 className=" text-center  px-2 text-lg tracking-normal  placeholder:text-primary ">
+            </p>
+            <p className=" text-center text-sm  px-2 sm:text-lg tracking-normal  placeholder:text-primary ">
               Help You Find Space?
-            </h1>
+            </p>
           </div>
           <div className=" w-[90vw] max-w-lg mx-auto rounded-xl bg-primary border border-default-border">
             <input

@@ -5,7 +5,9 @@ const Button = ({ onClick, icon, placeHolder, className }) => {
       onClick={onClick}
     >
       {placeHolder && (
-        <span className=" font-semibold tracking-wider">{placeHolder}</span>
+        <span className=" font-semibold tracking-wider text-sm sm:text-base ">
+          {placeHolder}
+        </span>
       )}
       {icon}
     </button>
@@ -31,7 +33,9 @@ export const ToggleButton = ({
       onClick={onClick}
     >
       {placeHolder && (
-        <span className=" font-semibold tracking-wider">{placeHolder}</span>
+        <span className=" font-semibold tracking-wider text-sm sm:text-base">
+          {placeHolder}
+        </span>
       )}
       {icon}
     </button>

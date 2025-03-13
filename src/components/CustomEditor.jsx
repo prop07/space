@@ -1,31 +1,31 @@
-import { useState, useRef } from "react";
-import { FaList } from "react-icons/fa";
-import { FiBold, FiItalic, FiUnderline } from "react-icons/fi";
+import { useRef } from "react";
+// import { FaList } from "react-icons/fa";
+// import { FiBold, FiItalic, FiUnderline } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Button from "./ui/button/Button";
 
 const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
-  const [activeTools, setActiveTools] = useState([]);
+  // const [activeTools, setActiveTools] = useState([]);
   const quillRef = useRef(null);
 
-  const toggleTool = (format) => {
-    const editor = quillRef.current?.getEditor();
-    if (!editor) return;
+  // const toggleTool = (format) => {
+  //   const editor = quillRef.current?.getEditor();
+  //   if (!editor) return;
 
-    const currentFormat = editor.getFormat();
-    const isActive = currentFormat[format];
+  //   const currentFormat = editor.getFormat();
+  //   const isActive = currentFormat[format];
 
-    if (isActive) {
-      editor.format(format, false);
-      setActiveTools((prev) => prev.filter((tool) => tool !== format));
-    } else {
-      editor.format(format, true);
-      setActiveTools((prev) => [...prev, format]);
-    }
-  };
+  //   if (isActive) {
+  //     editor.format(format, false);
+  //     setActiveTools((prev) => prev.filter((tool) => tool !== format));
+  //   } else {
+  //     editor.format(format, true);
+  //     setActiveTools((prev) => [...prev, format]);
+  //   }
+  // };
 
-  const isToolActive = (format) => activeTools.includes(format);
+  // const isToolActive = (format) => activeTools.includes(format);
 
   const handleParentClick = () => {
     if (quillRef.current) {
@@ -63,8 +63,8 @@ const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
             }}
           />
         </div>
-        <div className="flex items-center justify-between  mt-2 ">
-          <div className="flex space-x-2">
+        <div className="flex items-center justify-end  mt-2 ">
+          {/* <div className="flex space-x-2">
             <Button
               onClick={() => toggleTool("bold")}
               icon={
@@ -109,7 +109,7 @@ const CustomEditor = ({ value, onChange, closeForm, editorName }) => {
                 />
               }
             />
-          </div>
+          </div> */}
           <div>
             {closeForm && <Button onClick={closeForm} placeHolder={"Close"} />}
           </div>

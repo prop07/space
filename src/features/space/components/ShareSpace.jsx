@@ -18,7 +18,9 @@ const ShareSpace = ({ spaceDetails }) => {
       <Modal isOpen={toggleShare} onClose={() => setToggleShare(false)}>
         <div className="">
           <div className=" flex justify-between">
-            <p className=" text-lg font-semibold">Share Space Link</p>
+            <p className=" text-md  sm:text-lg font-semibold">
+              Share Space Link
+            </p>
             <Button
               onClick={() => setToggleShare(false)}
               icon={<IoClose size={20} />}
