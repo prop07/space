@@ -8,12 +8,16 @@ import { MdOutlineSave } from "react-icons/md";
 import { GoDot } from "react-icons/go";
 import { MdOutlinePublishedWithChanges } from "react-icons/md";
 
-const Quickguide = () => {
+const QuickGuide = () => {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 mt-4">
-      <h1 className="mb-8 text-center text-3xl font-bold">Quick Guide</h1>
-      <div className="mb-12 rounded-lg border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-2xl font-semibold">Creating a New Space</h2>
+      <h1 className="mb-8 text-center text-2xl sm:text-3xl font-bold">
+        Quick Guide
+      </h1>
+      <div className="mb-12 rounded-md border border-default-border bg-card p-6 shadow-sm">
+        <h2 className="mb-4 text-xl sm:text-2xl font-semibold">
+          Creating a New Space
+        </h2>
         <div className="mb-6 space-y-4">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
@@ -27,7 +31,7 @@ const Quickguide = () => {
             </div>
             <p>
               Click the
-              <span className="inline-flex items-center rounded-md bg-muted px-2 py-1  border border-muted-foreground/50 bg-muted/50 text-sm font-medium mx-2">
+              <span className="inline-flex items-center rounded-md bg-muted px-2 py-1  border border-muted-foreground/50  text-sm font-medium mx-2">
                 Create Space +
               </span>
               button
@@ -42,8 +46,8 @@ const Quickguide = () => {
         </div>
       </div>
 
-      <div className="rounded-lg border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-2xl font-semibold">
+      <div className="rounded-md border border-default-border bg-card p-6 shadow-sm">
+        <h2 className="mb-4 text-xl sm:text-2xl font-semibold">
           Finding an Existing Space
         </h2>
         <div className="mb-6 space-y-4">
@@ -82,11 +86,11 @@ const Quickguide = () => {
           </div>
         </div>
       </div>
-
       <div className="mx-auto max-w-3xl mt-10 ">
-        <div className="mb-8 rounded-lg border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-2xl font-semibold">Using Your Space List</h2>
-
+        <div className="mb-8 rounded-md border border-default-border p-6 shadow-sm">
+          <h2 className="mb-4 text-xl sm:text-2xl font-semibold">
+            Using Your Space List
+          </h2>
           {/* Instructions */}
           <div className="space-y-6">
             <div className="flex items-start gap-3">
@@ -96,8 +100,8 @@ const Quickguide = () => {
               <div>
                 <p className="font-medium">Adding Items</p>
                 <p className="text-sm text-muted-foreground">
-                  Simply click the &quot;List anything...&quot; button and start
-                  typing on field
+                  Simply click the &quot;List anything...&quot; and start adding
+                  on field
                 </p>
               </div>
             </div>
@@ -150,8 +154,8 @@ const Quickguide = () => {
             </div>
           </div>
         </div>
-        <div className="rounded-lg border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 text-2xl font-semibold">
+        <div className="rounded-md border border-default-border p-6 shadow-sm">
+          <h2 className="mb-4 text-xl sm:text-2xl font-semibold">
             Tips for Effective List Management
           </h2>
           <ul className="space-y-3 text-sm text-muted-foreground">
@@ -178,4 +182,4 @@ const Quickguide = () => {
   );
 };
 
-export default Quickguide;
+export default QuickGuide;

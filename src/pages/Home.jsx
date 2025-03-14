@@ -100,7 +100,7 @@ const Home = () => {
               </div>
             </label>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-2">
             <Link to="/quickguide">
               <button className="rounded-full text-sm border py-1 px-2 flex items-center gap-1 border-default-border hover:bg-default-hover cursor-pointer ">
                 Quick Guide

@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import CustomEditor from "@/components/CustomEditor";
 import { useDispatch } from "react-redux";
 import { resetField, handleUpdateField } from "@/features/field";
-import { errorToast } from "@/components/notifications/Toast";
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import Modal from "../../../components/models/Modal";
 import Button from "../../../components/ui/button/Button";
@@ -14,6 +13,7 @@ export const DetailedFieldInfo = ({
 }) => {
   const { cloudStatus, setCloudStatus } = useCloudStatus();
   const dispatch = useDispatch();
+  const [toggleForm, setToggleForm] = useState(false);
   const { title, content, last_modified, field_code } = activeFieldInfo || {};
   const inputHeadingRef = useRef(null);
   const [formData, setFormData] = useState({
@@ -32,32 +32,28 @@ export const DetailedFieldInfo = ({
       title: title || null,
       content: content || null,
     });
+    if (activeFieldInfo) {
+      setToggleForm(true);
+    }
   }, [activeFieldInfo]);
 
-  const handleUpdate = () => {
+  const handleForm = () => {
     setCloudStatus("pending");
     const fieldDate = { ...formData, field_code: field_code };
     handleUpdateField(fieldDate, dispatch, spaceId);
+    setToggleForm(false);
   };
 
-  useEffect(() => {
-    if (!formData.title && activeFieldInfo) {
-      errorToast("Heading is required !");
-    } else if (title != formData.title || content != formData.content) {
-      handleUpdate();
-    }
-  }, [formData]);
-
-  const handleClose = () => {
-    setActiveFieldInfo(null);
+  const closeForm = () => {
+    setToggleForm(false);
     dispatch(resetField());
+    setTimeout(() => {
+      setActiveFieldInfo(null);
+    }, 500);
   };
 
   return (
-    <Modal
-      isOpen={activeFieldInfo ? true : false}
-      onClose={() => handleClose()}
-    >
+    <Modal isOpen={toggleForm} onClose={closeForm}>
       <div className=" space-y-4">
         <input
           ref={inputHeadingRef}
@@ -78,12 +74,17 @@ export const DetailedFieldInfo = ({
           }}
         />
       </div>
-
       <div className="flex justify-between items-center mt-2">
         <p className="text-xs">Edited: {last_modified}</p>
-        <Button onClick={handleClose} placeHolder={"Close"}>
-          Close
-        </Button>
+        {(formData.title &&
+          formData.content &&
+          formData.content.trim() !== "<p><br></p>" &&
+          title != formData.title) ||
+        content != formData.content ? (
+          <Button onClick={handleForm} placeHolder={"Update"} />
+        ) : (
+          <Button onClick={closeForm} placeHolder={"Close"} />
+        )}
       </div>
     </Modal>
   );

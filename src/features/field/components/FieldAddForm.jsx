@@ -1,23 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addField, resetField, handleUpdateField } from "@/features/field";
+import { useDispatch } from "react-redux";
+import { addField } from "@/features/field";
 import { loadingToast, errorToast } from "@/components/notifications/Toast";
-import { KEY_DEBOUNCE_DELAY } from "../../../Constantes";
 import { useCloudStatus } from "@/context/CloudStatusProvider";
 import CustomEditor from "@/components/CustomEditor";
+import Button from "../../../components/ui/button/Button";
 
 export const FieldAddForm = ({ spaceId }) => {
   const [toggleForm, setToggleForm] = useState(false);
   const [formData, setFormData] = useState({ title: "", content: "" });
   const { cloudStatus, setCloudStatus } = useCloudStatus();
-  const fieldDetails = useSelector((state) => state.field);
 
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const debounceTimeout = useRef(null);
   const formRef = useRef(null);
-
-  // console.log("field details", JSON.stringify(fieldDetails, null, 2));
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,62 +28,23 @@ export const FieldAddForm = ({ spaceId }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (!toggleForm && fieldDetails.data) {
-      dispatch(resetField());
-    }
-  }, [cloudStatus]);
-
-  useEffect(() => {
-    if (!formData.title && fieldDetails.data) {
-      errorToast("Heading is required !");
-    }
-    handleForm();
-  }, [formData]);
-
   const openForm = () => {
     if (cloudStatus === "pending") {
       loadingToast();
       return null;
     }
-
-    dispatch(resetField());
-    setTimeout(() => {
-      setToggleForm(true);
-    }, 100);
+    setToggleForm(true);
   };
 
   const closeForm = () => {
-    dispatch(resetField());
     setToggleForm(false);
     setFormData((prev) => ({ ...prev, title: "", content: "" }));
   };
 
   const handleForm = () => {
-    if (fieldDetails?.data?.field?.field_code) {
-      console.log("handleUpdate");
-      setCloudStatus("pending");
-      const fieldData = {
-        ...formData,
-        field_code: fieldDetails.data.field.field_code,
-      };
-      handleUpdateField(fieldData, dispatch, spaceId);
-    } else if (
-      formData.title &&
-      formData.content &&
-      formData.content != "<p><br></p>"
-    ) {
-      console.log("handleadd");
-      if (debounceTimeout.current) {
-        clearTimeout(debounceTimeout.current);
-      }
-
-      setCloudStatus("pending");
-      debounceTimeout.current = setTimeout(() => {
-        dispatch(addField({ id: spaceId, fieldData: formData }));
-        debounceTimeout.current = null;
-      }, KEY_DEBOUNCE_DELAY);
-    }
+    setCloudStatus("pending");
+    dispatch(addField({ id: spaceId, fieldData: formData }));
+    setToggleForm(false);
   };
 
   return (
@@ -117,13 +74,22 @@ export const FieldAddForm = ({ spaceId }) => {
             id="inputTitle"
           />
           <CustomEditor
+            onClick={(e) => e.stopPropagation()}
             editorName={"addFormEditor"}
             value={formData.content}
             onChange={(value) =>
               setFormData((prev) => ({ ...prev, content: value }))
             }
-            closeForm={closeForm}
           />
+          <div className=" flex justify-end -mt-10">
+            {formData.title &&
+            formData.content &&
+            formData.content.trim() !== "<p><br></p>" ? (
+              <Button onClick={handleForm} placeHolder={"Add"} />
+            ) : (
+              <Button onClick={closeForm} placeHolder={"Close"} />
+            )}
+          </div>
         </div>
       )}
     </div>
