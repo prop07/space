@@ -33,11 +33,11 @@ const routes = createBrowserRouter([
         element: <QuickGuide />,
         handle: { title: "Quick Guide" },
       },
-      {
-        path: "/test",
-        element: <Test />,
-        handle: { title: "test page" },
-      },
+      // {
+      //   path: "/test",
+      //   element: <Test />,
+      //   handle: { title: "test page" },
+      // },
     ],
   },
 ]);

@@ -44,7 +44,7 @@ export const FieldAddForm = ({ spaceId }) => {
   const handleForm = () => {
     setCloudStatus("pending");
     dispatch(addField({ id: spaceId, fieldData: formData }));
-    setToggleForm(false);
+    closeForm();
   };
 
   return (
